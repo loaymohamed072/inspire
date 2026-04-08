@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INSPIRE Physical Therapy & Sports Injury | Stay Limitless</title>
+  <meta name="description" content="Elite physiotherapy and sports injury clinic in Cairo. Manual therapy, smart rehab, and real performance recovery." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand-green': '#27C93F',
+            'brand-green-2': '#36B44A',
+            'brand-black': '#050505',
+            'brand-white': '#F5F5F5',
+            'brand-gray': '#B8B8B8',
+          },
+          fontFamily: {
+            display: ['"Barlow Condensed"', 'sans-serif'],
+            sans: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { background: #050505; color: #F5F5F5; font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; }
+    ::selection { background: #27C93F; color: #050505; }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: #050505; }
+    ::-webkit-scrollbar-thumb { background: #27C93F; }
+
+    /* Loading screen */
+    #loading {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #050505;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: opacity 0.7s cubic-bezier(0.76,0,0.24,1);
+    }
+    #loading.hide { opacity: 0; pointer-events: none; }
+    .load-bar-track { width: 7rem; height: 1px; background: rgba(255,255,255,0.08); overflow: hidden; margin-top: 2.5rem; }
+    .load-bar-fill {
+      height: 100%; background: #27C93F; width: 0%;
+      animation: loadbar 1.9s 0.4s cubic-bezier(0.76,0,0.24,1) forwards;
+    }
+    @keyframes loadbar { to { width: 100%; } }
+    @keyframes logoIn {
+      0%   { opacity: 0; transform: translateX(-28px) scale(0.96); }
+      65%  { opacity: 1; transform: translateX(4px) scale(1.01); }
+      82%  { transform: translateX(-2px) scale(0.995); }
+      100% { transform: translateX(0) scale(1); opacity: 1; }
+    }
+    #loading-logo { animation: logoIn 0.85s 0.15s cubic-bezier(0.34,1.3,0.64,1) both; }
+
+    /* Display type */
+    .font-display { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; line-height: 0.88; text-transform: uppercase; }
+
+    /* Marquee — hardware accelerated for static export reliability */
+    @keyframes marquee { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
+    @keyframes marquee-rev { from { transform: translate3d(-50%,0,0); } to { transform: translate3d(0,0,0); } }
+    .marquee-inner { animation: marquee 28s linear infinite; will-change: transform; backface-visibility: hidden; }
+    .marquee-inner-rev { animation: marquee-rev 34s linear infinite; will-change: transform; backface-visibility: hidden; }
+    /* Drift text strip */
+    .drift-inner { display: flex; animation: marquee 50s linear infinite; will-change: transform; backface-visibility: hidden; }
+
+    /* Reveal on scroll */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.85s cubic-bezier(0.76,0,0.24,1), transform 0.85s cubic-bezier(0.76,0,0.24,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
+    .reveal-d4 { transition-delay: 0.4s; }
+
+    /* Booking */
+    .step-panel { display: none; }
+    .step-panel.active { display: block; }
+    .step-btn.active-step { color: #27C93F; border-bottom: 2px solid #27C93F; }
+    .time-slot, .branch-card, .intent-card {
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: border-color 0.25s, background 0.25s, color 0.25s;
+      cursor: pointer;
+    }
+    .time-slot:hover, .branch-card:hover, .intent-card:hover {
+      border-color: rgba(255,255,255,0.3);
+    }
+    .time-slot.selected, .branch-card.selected, .intent-card.selected {
+      border-color: #27C93F;
+      background: rgba(39,201,63,0.06);
+    }
+    .cal-day {
+      aspect-ratio: 1;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+      color: #B8B8B8;
+    }
+    .cal-day:hover:not(.past) { border-color: rgba(39,201,63,0.4); color: #F5F5F5; }
+    .cal-day.past { color: rgba(255,255,255,0.15); cursor: not-allowed; }
+    .cal-day.selected { background: #27C93F; color: #050505; font-weight: 700; border-color: #27C93F; }
+
+    /* Bottom sticky bar */
+    #bottom-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+      display: flex;
+      box-shadow: 0 -1px 0 rgba(255,255,255,0.06), 0 -8px 24px rgba(0,0,0,0.6);
+    }
+    @media (min-width: 768px) { #bottom-bar { display: none; } }
+    @media (max-width: 767px) { body { padding-bottom: 56px; } }
+
+    /* Nav */
+    #navbar { transition: background 0.5s, border-color 0.5s; }
+    #navbar.scrolled { background: rgba(5,5,5,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+    /* Mobile menu */
+    #mobile-menu { display: none; }
+    #mobile-menu.open { display: flex; }
+
+    /* Image hover */
+    .img-zoom { overflow: hidden; }
+    .img-zoom img { transition: transform 0.7s cubic-bezier(0.76,0,0.24,1); }
+    .img-zoom:hover img { transform: scale(1.04); }
+
+    /* Green glow */
+    .glow-green { text-shadow: 0 0 60px rgba(39,201,63,0.25); }
+
+    /* Review card stars via pseudo-element */
+    .review-card::before {
+      content: '★ ★ ★ ★ ★';
+      display: block;
+      color: #27C93F;
+      font-size: 9px;
+      letter-spacing: 4px;
+      margin-bottom: 10px;
+    }
+
+    /* Booking atmospheric bg */
+    #booking-bg-img {
+      position: absolute; inset: 0; z-index: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      opacity: 0.08; filter: saturate(0.2) brightness(0.7);
+    }
+    #booking-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(135deg, rgba(5,5,5,0.97) 0%, rgba(5,5,5,0.88) 55%, rgba(5,5,5,0.95) 100%);
+    }
+    #booking-glow {
+      position: absolute; z-index: 1; pointer-events: none;
+      top: 15%; left: 5%; width: 45vw; height: 45vw; max-width: 600px; max-height: 600px;
+      background: radial-gradient(circle, rgba(39,201,63,0.04) 0%, transparent 65%);
+    }
+    #booking > .max-w-\[1400px\] { position: relative; z-index: 2; }
+
+    /* Hero brand marker at top */
+    .hero-top-marker { display: flex; align-items: center; gap: 10px; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════ LOADING SCREEN -->
+<div id="loading">
+  <img id="loading-logo" src="logo/inspire logo no background.png" alt="INSPIRE" style="width:min(48vw,240px);height:auto;object-fit:contain;" />
+  <p style="margin-top:1.25rem;font-size:10px;letter-spacing:0.4em;color:rgba(184,184,184,0.7);text-transform:uppercase;animation:fadeUp 0.6s 0.7s both">Stay Limitless</p>
+  <div class="load-bar-track"><div class="load-bar-fill"></div></div>
+</div>
+<style>@keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }</style>
+
+<!-- ═══════════════════════════════════════ NAVBAR -->
+<header id="navbar" class="fixed top-0 left-0 right-0 z-50">
+  <div class="flex items-center justify-between px-5 md:px-10 lg:px-16 h-16 md:h-20 max-w-[1600px] mx-auto">
+    <a href="#" style="display:flex;align-items:center;">
+      <img src="logo/inspire logo no background.png" alt="INSPIRE Physical Therapy" style="height:56px;width:auto;object-fit:contain;" />
+    </a>
+
+    <nav class="hidden md:flex items-center gap-8">
+      <a href="#philosophy" class="text-[11px] tracking-[0.25em] text-brand-gray uppercase hover:text-brand-white transition-colors">Approach</a>
+      <a href="#team" class="text-[11px] tracking-[0.25em] text-brand-gray uppercase hover:text-brand-white transition-colors">Team</a>
+      <a href="#locations" class="text-[11px] tracking-[0.25em] text-brand-gray uppercase hover:text-brand-white transition-colors">Locations</a>
+    </nav>
+
+    <div class="hidden md:flex items-center gap-5">
+      <a href="tel:+201200777828" class="text-[11px] tracking-[0.15em] text-brand-gray uppercase hover:text-brand-white transition-colors">+20 120 077 7828</a>
+      <a href="#booking" class="inline-flex items-center bg-brand-green text-[#050505] text-[11px] font-bold tracking-[0.2em] uppercase px-5 py-2.5 hover:bg-brand-green-2 transition-colors">Book Now</a>
+    </div>
+
+    <button id="hamburger" onclick="toggleMenu()" class="md:hidden flex flex-col gap-[5px] p-2 cursor-pointer" aria-label="Menu">
+      <span id="h1" class="block w-6 h-px bg-brand-white transition-all duration-250"></span>
+      <span id="h2" class="block w-6 h-px bg-brand-white transition-all duration-250"></span>
+      <span id="h3" class="block w-6 h-px bg-brand-white transition-all duration-250"></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="flex-col px-6 pt-6 pb-8 gap-6 bg-[#050505]/98 backdrop-blur-xl border-b border-white/5 md:hidden">
+    <a href="#philosophy" onclick="toggleMenu()" class="text-sm tracking-[0.25em] text-brand-gray uppercase">Approach</a>
+    <a href="#team" onclick="toggleMenu()" class="text-sm tracking-[0.25em] text-brand-gray uppercase">Team</a>
+    <a href="#locations" onclick="toggleMenu()" class="text-sm tracking-[0.25em] text-brand-gray uppercase">Locations</a>
+    <a href="tel:+201200777828" class="text-[11px] tracking-[0.15em] text-brand-gray uppercase text-center py-3 border border-white/10">+20 120 077 7828</a>
+    <a href="#booking" onclick="toggleMenu()" class="flex items-center justify-center bg-brand-green text-[#050505] text-sm font-bold tracking-[0.15em] uppercase py-3">Book a Session</a>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════ HERO -->
+<section id="hero" class="relative h-screen min-h-[600px] overflow-hidden">
+  <div id="hero-video-wrap" class="absolute inset-0 scale-[1.06]">
+    <video autoplay muted loop playsinline class="w-full h-full object-cover" poster="therapy/therapy.jpg">
+      <source src="hero video/hero video.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <div class="absolute inset-0 bg-gradient-to-r from-[#050505]/88 via-[#050505]/45 to-transparent"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/25"></div>
+
+  <div id="hero-content" class="relative z-10 h-full flex flex-col justify-between px-5 pt-24 pb-10 md:px-12 lg:px-20 md:pt-28 md:pb-14 max-w-[1600px] mx-auto">
+
+    <!-- Top geographic marker — fills top space, anchors the brand -->
+    <div class="hero-top-marker reveal" style="transition-delay:0s">
+      <span class="w-4 h-px" style="background:#27C93F;display:inline-block;flex-shrink:0;"></span>
+      <span style="font-size:10px;letter-spacing:0.4em;color:rgba(184,184,184,0.5);text-transform:uppercase;">Cairo, Egypt — Physical Therapy &amp; Sports Injury</span>
+    </div>
+
+    <!-- Bottom: main copy block -->
+    <div>
+      <!-- Label anchored flush above headline -->
+      <div class="flex items-center gap-3 mb-3 reveal" style="transition-delay:0.1s">
+        <span class="w-8 h-px" style="background:#27C93F;display:inline-block;flex-shrink:0;"></span>
+        <span style="font-size:10px;letter-spacing:0.38em;color:#27C93F;text-transform:uppercase;font-weight:600;">INSPIRE Clinic</span>
+      </div>
+
+      <h1 class="font-display text-brand-white mb-4 reveal reveal-d1" style="font-size:clamp(3.8rem,11vw,9.5rem);line-height:0.87;">
+        Stay<br/><span class="text-brand-green glow-green">Limitless</span>
+      </h1>
+
+      <!-- Thin divider -->
+      <div class="mb-5 reveal reveal-d1" style="width:3.5rem;height:1px;background:rgba(255,255,255,0.12);"></div>
+
+      <div class="flex flex-col sm:flex-row sm:items-end gap-5 sm:gap-10 reveal reveal-d2">
+        <p class="text-brand-gray leading-relaxed" style="font-size:clamp(0.8rem,1.4vw,1rem);max-width:18rem;">
+          Cairo's leading physiotherapy &amp; sports injury clinic.
+          <br/>Manual therapy. Smart rehab. Built for athletes.
+        </p>
+        <div style="display:flex;gap:0.75rem;flex-shrink:0;">
+          <a href="#booking" style="display:inline-flex;align-items:center;background:#27C93F;color:#050505;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;padding:0.875rem 1.5rem;text-decoration:none;transition:background 0.3s;cursor:pointer;" onmouseover="this.style.background='#36B44A'" onmouseout="this.style.background='#27C93F'">Book a Session</a>
+          <a href="#philosophy" style="display:inline-flex;align-items:center;border:1px solid rgba(255,255,255,0.2);color:#F5F5F5;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;padding:0.875rem 1.5rem;text-decoration:none;transition:border-color 0.3s;cursor:pointer;" onmouseover="this.style.borderColor='rgba(255,255,255,0.5)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.2)'">Our Approach</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute flex flex-col items-center gap-2 reveal reveal-d4" style="bottom:2rem;right:1.25rem;">
+      <span style="font-size:9px;letter-spacing:0.35em;color:#B8B8B8;text-transform:uppercase;writing-mode:vertical-lr;">Scroll</span>
+      <div style="width:1px;height:2.5rem;background:linear-gradient(to bottom,#27C93F,transparent);"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ PHILOSOPHY -->
+<section id="philosophy" class="bg-[#050505]">
+  <div class="pt-14 md:pt-20 pb-6 px-5 md:px-12 lg:px-20 max-w-[1400px] mx-auto">
+    <p class="text-[11px] tracking-[0.4em] text-brand-green uppercase mb-4 reveal">The INSPIRE Approach</p>
+    <h2 class="font-display text-[clamp(2.4rem,5.5vw,5rem)] text-brand-white leading-[0.9] max-w-2xl reveal reveal-d1">
+      Recovery with<br/><span class="text-brand-green">Intent</span>
+    </h2>
+  </div>
+
+  <!-- Panel 1 -->
+  <div class="px-5 md:px-12 lg:px-20 py-16 md:py-20">
+    <div class="w-full max-w-[1400px] mx-auto grid md:grid-cols-2 gap-8 md:gap-16 items-center">
+      <div>
+        <span class="text-[11px] tracking-[0.35em] text-brand-green uppercase reveal">01</span>
+        <h3 class="font-display text-[clamp(2.6rem,6vw,5.5rem)] text-brand-white mt-3 mb-5 reveal reveal-d1">Assessment<br/>First. Always.</h3>
+        <div class="h-px w-16 bg-brand-green mb-5 reveal reveal-d2" style="transform-origin:left;transform:scaleX(0);transition:transform 0.7s 0.35s cubic-bezier(0.76,0,0.24,1),opacity 0.7s"></div>
+        <p class="text-brand-gray text-base leading-relaxed max-w-md reveal reveal-d3">We don't treat the symptom. We find the source. Every session begins with a precise movement assessment — because real recovery demands real understanding.</p>
+      </div>
+      <div class="relative aspect-[4/5] img-zoom reveal reveal-d1">
+        <img src="therapy/therapy.jpg" alt="Assessment" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#050505]/35 to-transparent"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel 2 -->
+  <div class="px-5 md:px-12 lg:px-20 py-16 md:py-20 border-t border-white/5">
+    <div class="w-full max-w-[1400px] mx-auto grid md:grid-cols-2 gap-8 md:gap-16 items-center">
+      <div class="md:order-2">
+        <span class="text-[11px] tracking-[0.35em] text-brand-green uppercase reveal">02</span>
+        <h3 class="font-display text-[clamp(2.6rem,6vw,5.5rem)] text-brand-white mt-3 mb-5 reveal reveal-d1">Hands-On.<br/>Not Machine-Led.</h3>
+        <div class="h-px w-16 bg-brand-green mb-5 reveal reveal-d2" style="transform-origin:left"></div>
+        <p class="text-brand-gray text-base leading-relaxed max-w-md reveal reveal-d3">Manual therapy is at the core of everything we do. Expert hands, intelligent touch, and deep anatomical knowledge — not passive machines and heat packs.</p>
+      </div>
+      <div class="relative aspect-[4/5] img-zoom md:order-1 reveal reveal-d1">
+        <img src="therapy/image of therapy 2.jpg" alt="Manual therapy" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#050505]/35 to-transparent"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel 3 -->
+  <div class="px-5 md:px-12 lg:px-20 py-16 md:py-20 border-t border-white/5">
+    <div class="w-full max-w-[1400px] mx-auto grid md:grid-cols-2 gap-8 md:gap-16 items-center">
+      <div>
+        <span class="text-[11px] tracking-[0.35em] text-brand-green uppercase reveal">03</span>
+        <h3 class="font-display text-[clamp(2.6rem,6vw,5.5rem)] text-brand-white mt-3 mb-5 reveal reveal-d1">Rehab Built<br/>Around Performance.</h3>
+        <div class="h-px w-16 bg-brand-green mb-5 reveal reveal-d2" style="transform-origin:left"></div>
+        <p class="text-brand-gray text-base leading-relaxed max-w-md reveal reveal-d3">Recovery doesn't end when pain stops. We rebuild movement, restore strength, and prepare your body to perform — not just survive.</p>
+      </div>
+      <div class="relative aspect-[4/5] img-zoom reveal reveal-d1">
+        <img src="therapy/therapy 3.jpg" alt="Performance rehab" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#050505]/35 to-transparent"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Drift text strip — CSS-only marquee, works in static export -->
+  <div class="py-12 md:py-16 overflow-hidden border-t border-white/5">
+    <div class="drift-inner whitespace-nowrap">
+      <span class="font-display flex-shrink-0 inline-flex items-center gap-5" style="font-size:clamp(2.2rem,5.5vw,5rem);color:rgba(39,201,63,0.38);">
+        Manual Therapy <span style="color:#27C93F;">&nbsp;·&nbsp;</span> Smart Rehab <span style="color:#27C93F;">&nbsp;·&nbsp;</span> Real Progress <span style="color:#27C93F;">&nbsp;·&nbsp;</span>
+        Manual Therapy <span style="color:#27C93F;">&nbsp;·&nbsp;</span> Smart Rehab <span style="color:#27C93F;">&nbsp;·&nbsp;</span> Real Progress <span style="color:#27C93F;">&nbsp;·&nbsp;</span>
+        Manual Therapy <span style="color:#27C93F;">&nbsp;·&nbsp;</span> Smart Rehab <span style="color:#27C93F;">&nbsp;·&nbsp;</span> Real Progress <span style="color:#27C93F;">&nbsp;·&nbsp;</span>
+      </span>
+      <span class="font-display flex-shrink-0 inline-flex items-center gap-5" style="font-size:clamp(2.2rem,5.5vw,5rem);color:rgba(39,201,63,0.38);" aria-hidden="true">
+        Manual Therapy <span style="color:#27C93F;">&nbsp;·&nbsp;</span> Smart Rehab <span style="color:#27C93F;">&nbsp;·&nbsp;</span> Real Progress <span style="color:#27C93F;">&nbsp;·&nbsp;</span>
+        Manual Therapy <span style="color:#27C93F;">&nbsp;·&nbsp;</span> Smart Rehab <span style="color:#27C93F;">&nbsp;·&nbsp;</span> Real Progress <span style="color:#27C93F;">&nbsp;·&nbsp;</span>
+        Manual Therapy <span style="color:#27C93F;">&nbsp;·&nbsp;</span> Smart Rehab <span style="color:#27C93F;">&nbsp;·&nbsp;</span> Real Progress <span style="color:#27C93F;">&nbsp;·&nbsp;</span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ TEAM -->
+<section id="team" class="py-16 md:py-24 px-5 md:px-12 lg:px-20 bg-[#050505]">
+  <div class="max-w-[1400px] mx-auto">
+    <div class="mb-14 md:mb-20">
+      <p class="text-[11px] tracking-[0.4em] text-brand-green uppercase mb-4 reveal">The Team</p>
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        <h2 class="font-display text-[clamp(2.4rem,5.5vw,5rem)] text-brand-white leading-[0.9] reveal reveal-d1">
+          Expert Hands.<br/><span class="text-brand-green">Real Results.</span>
+        </h2>
+        <p class="text-brand-gray text-sm leading-relaxed max-w-xs md:text-right reveal reveal-d2">
+          Expert physiotherapists in Cairo — specialists in manual therapy, sports injury recovery, and rehab for athletes at every level.
+        </p>
+      </div>
+    </div>
+
+    <!-- Founders — 3-col, all visible simultaneously -->
+    <div class="grid md:grid-cols-3 gap-4 md:gap-5 mb-16 md:mb-20">
+      <!-- Dr. Magdi -->
+      <div class="group relative overflow-hidden img-zoom reveal">
+        <div class="relative" style="aspect-ratio:3/4;">
+          <img src="team/compressed/magdy-1.jpg" alt="Dr. Mohamed Magdi Kandeel" class="w-full h-full object-cover object-top" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent"></div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-5 md:p-6">
+          <p class="text-[10px] tracking-[0.3em] text-brand-green uppercase mb-1.5">Sports Medicine &amp; Clinical Assessment</p>
+          <h3 class="font-display text-[clamp(1.3rem,2.5vw,1.9rem)] text-brand-white leading-tight mb-1">Dr. Mohamed Magdi Kandeel</h3>
+          <p class="text-brand-gray text-[11px] tracking-[0.15em] uppercase mb-2">Co-Founder · Head of Medical</p>
+          <p class="text-brand-gray text-xs leading-relaxed">Precision diagnostics and a patient-first standard — Dr. Magdi leads the clinical vision at INSPIRE.</p>
+        </div>
+      </div>
+
+      <!-- Dr. Yassine -->
+      <div class="group relative overflow-hidden img-zoom reveal reveal-d1">
+        <div class="relative" style="aspect-ratio:3/4;">
+          <img src="team/compressed/yassen-2.jpg" alt="Dr. Yassine Rady" class="w-full h-full object-cover object-top" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent"></div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-5 md:p-6">
+          <p class="text-[10px] tracking-[0.3em] text-brand-green uppercase mb-1.5">Advanced Physiotherapy &amp; Athletic Rehab</p>
+          <h3 class="font-display text-[clamp(1.3rem,2.5vw,1.9rem)] text-brand-white leading-tight mb-1">Dr. Yassine Rady</h3>
+          <p class="text-brand-gray text-[11px] tracking-[0.15em] uppercase mb-2">Co-Founder · Head Physiotherapist</p>
+          <p class="text-brand-gray text-xs leading-relaxed">Movement science and measurable outcomes — Dr. Yassine drives the rehab standard for athletes and active patients.</p>
+        </div>
+      </div>
+
+      <!-- Dr. Ahmed -->
+      <div class="group relative overflow-hidden img-zoom reveal reveal-d2">
+        <div class="relative" style="aspect-ratio:3/4;">
+          <img src="team/compressed/Dr ahmed-2.png" alt="Dr. Ahmed" class="w-full h-full object-cover object-top" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent"></div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-5 md:p-6">
+          <p class="text-[10px] tracking-[0.3em] text-brand-green uppercase mb-1.5">Manual Therapy &amp; Hands-On Treatment</p>
+          <h3 class="font-display text-[clamp(1.3rem,2.5vw,1.9rem)] text-brand-white leading-tight mb-1">Dr. Ahmed</h3>
+          <p class="text-brand-gray text-[11px] tracking-[0.15em] uppercase mb-2">Co-Founder · Head of Manual Therapy</p>
+          <p class="text-brand-gray text-xs leading-relaxed">Specialist in hands-on manual therapy — restoring function and reducing pain with clinical precision.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full team grid -->
+    <div>
+      <p class="text-[11px] tracking-[0.35em] text-brand-gray uppercase mb-8 reveal">The Full Team</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5 md:gap-6">
+        <!-- Nada Sabry -->
+        <div class="reveal">
+          <div class="aspect-square img-zoom overflow-hidden bg-[#111] mb-3">
+            <img src="team/compressed/dr nada sabry.jpg" alt="Nada Sabry" class="w-full h-full object-cover object-top" />
+          </div>
+          <p class="text-brand-white text-sm font-medium">Nada Sabry</p>
+          <p class="text-brand-gray text-[11px] tracking-[0.15em] uppercase mt-1">Physiotherapist</p>
+        </div>
+        <!-- Nada Karam -->
+        <div class="reveal reveal-d1">
+          <div class="aspect-square img-zoom overflow-hidden bg-[#111] mb-3">
+            <img src="team/compressed/dr nada karam.jpg" alt="Nada Karam" class="w-full h-full object-cover object-top" />
+          </div>
+          <p class="text-brand-white text-sm font-medium">Nada Karam</p>
+          <p class="text-brand-gray text-[11px] tracking-[0.15em] uppercase mt-1">Physiotherapist</p>
+        </div>
+        <!-- Nada Samy -->
+        <div class="reveal reveal-d2">
+          <div class="aspect-square img-zoom overflow-hidden bg-[#111] mb-3">
+            <img src="team/compressed/dr nada samy.jpg" alt="Nada Samy" class="w-full h-full object-cover object-top" />
+          </div>
+          <p class="text-brand-white text-sm font-medium">Nada Samy</p>
+          <p class="text-brand-gray text-[11px] tracking-[0.15em] uppercase mt-1">Physiotherapist</p>
+        </div>
+        <!-- Yousef -->
+        <div class="reveal reveal-d3">
+          <div class="aspect-square overflow-hidden bg-[#111] mb-3 flex items-center justify-center">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          </div>
+          <p class="text-brand-white text-sm font-medium">Yousef Karim</p>
+          <p class="text-brand-gray text-[11px] tracking-[0.15em] uppercase mt-1">Rehabilitation Specialist</p>
+        </div>
+        <!-- Mohsen -->
+        <div class="reveal reveal-d4">
+          <div class="aspect-square overflow-hidden bg-[#111] mb-3 flex items-center justify-center">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          </div>
+          <p class="text-brand-white text-sm font-medium">Mohsen</p>
+          <p class="text-brand-gray text-[11px] tracking-[0.15em] uppercase mt-1">Sports Therapist</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ TESTIMONIALS -->
+<section class="py-16 md:py-24 overflow-hidden bg-[#050505]">
+  <div class="px-5 md:px-12 lg:px-20 max-w-[1400px] mx-auto mb-12 md:mb-16">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+      <div>
+        <p class="text-[11px] tracking-[0.4em] text-brand-green uppercase mb-4 reveal">Patient Stories</p>
+        <h2 class="font-display text-[clamp(2.4rem,5.5vw,5rem)] text-brand-white leading-[0.9] reveal reveal-d1">
+          Real People.<br/><span class="text-brand-green">Real Progress.</span>
+        </h2>
+        <p class="mt-4 text-sm text-brand-gray reveal reveal-d2">
+          <span style="color:#27C93F;font-weight:600;">Over 10,000 patients</span> successfully treated across Cairo.
+        </p>
+      </div>
+      <div class="flex items-center gap-4 border border-white/8 bg-[#0a0a0a] px-5 py-4 self-start reveal reveal-d2">
+        <div>
+          <div class="flex gap-0.5 mb-1">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#27C93F"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#27C93F"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#27C93F"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#27C93F"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#27C93F"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-brand-white text-xs font-semibold">5.0 on Google Reviews</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile swipe row (hidden on md+) -->
+  <div class="md:hidden mb-4 px-5" style="overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;scrollbar-width:none;">
+    <div style="display:flex;gap:0.75rem;padding-bottom:0.25rem;">
+      <div class="review-card" style="flex-shrink:0;width:82vw;max-width:320px;scroll-snap-align:start;">&#8220;Dr. Magdi&#8217;s assessment was incredibly thorough. Within a week I understood my injury better than I had in two years.&#8221;<div class="review-footer"><div><b>Dina S.</b><span>Knee Rehabilitation</span></div></div></div>
+      <div class="review-card" style="flex-shrink:0;width:82vw;max-width:320px;scroll-snap-align:start;">&#8220;The transparency here is unlike any clinic I&#8217;ve visited. They explain every decision — no guesswork.&#8221;<div class="review-footer"><div><b>Sara M.</b><span>Post-Surgical Recovery</span></div></div></div>
+      <div class="review-card" style="flex-shrink:0;width:82vw;max-width:320px;scroll-snap-align:start;">&#8220;Three months post-surgery and I&#8217;m back training at full capacity. Their rehab protocol is genuinely elite level.&#8221;<div class="review-footer"><div><b>Layla T.</b><span>Athletic Rehabilitation</span></div></div></div>
+      <div class="review-card" style="flex-shrink:0;width:82vw;max-width:320px;scroll-snap-align:start;">&#8220;As a competitive runner, this team gets it. They think in performance terms — not just &#8216;pain gone = done&#8217;.&#8221;<div class="review-footer"><div><b>Youssef H.</b><span>Running Performance</span></div></div></div>
+      <div class="review-card" style="flex-shrink:0;width:82vw;max-width:320px;scroll-snap-align:start;">&#8220;After two failed attempts at physio elsewhere, INSPIRE actually fixed my shoulder with real hands-on attention.&#8221;<div class="review-footer"><div><b>Omar F.</b><span>Shoulder Injury</span></div></div></div>
+      <div class="review-card" style="flex-shrink:0;width:82vw;max-width:320px;scroll-snap-align:start;">&#8220;Best sports rehab in Cairo. The energy is clinical but motivating — you feel like you&#8217;re training, not just recovering.&#8221;<div class="review-footer"><div><b>Karim R.</b><span>Sports Injury</span></div></div></div>
+      <div class="review-card" style="flex-shrink:0;width:82vw;max-width:320px;scroll-snap-align:start;">&#8220;Dr. Yassine mapped out every step of my recovery. Went from chronic knee pain to running 10K in 8 weeks.&#8221;<div class="review-footer"><div><b>Ahmed K.</b><span>Chronic Knee Pain</span></div></div></div>
+      <div class="review-card" style="flex-shrink:0;width:82vw;max-width:320px;scroll-snap-align:start;">&#8220;They don&#8217;t just treat the injury — they train you to move better permanently. That&#8217;s the real difference.&#8221;<div class="review-footer"><div><b>Nour A.</b><span>Movement Rehabilitation</span></div></div></div>
+    </div>
+  </div>
+
+  <!-- Row 1 (desktop marquee) -->
+  <div class="mb-4 overflow-hidden hidden md:block">
+    <div class="flex marquee-inner">
+      <div class="flex flex-shrink-0">
+        <div class="review-card">&#8220;Dr. Magdi&#8217;s assessment was incredibly thorough. Within a week I understood my injury better than I had in two years.&#8221;<div class="review-footer"><div><b>Dina S.</b><span>Knee Rehabilitation</span></div></div></div>
+        <div class="review-card">&#8220;The transparency here is unlike any clinic I&#8217;ve visited. They explain every decision — no guesswork, no passive waiting.&#8221;<div class="review-footer"><div><b>Sara M.</b><span>Post-Surgical Recovery</span></div></div></div>
+        <div class="review-card">&#8220;Three months post-surgery and I&#8217;m back training at full capacity. Their rehab protocol is genuinely elite level.&#8221;<div class="review-footer"><div><b>Layla T.</b><span>Athletic Rehabilitation</span></div></div></div>
+        <div class="review-card">&#8220;As a competitive runner, this team gets it. They think in performance terms — not just &#8216;pain gone = done&#8217;. That makes all the difference.&#8221;<div class="review-footer"><div><b>Youssef H.</b><span>Running Performance</span></div></div></div>
+        <div class="review-card">&#8220;After two failed attempts at physio elsewhere, INSPIRE actually fixed my shoulder. Manual therapy with real hands-on attention.&#8221;<div class="review-footer"><div><b>Omar F.</b><span>Shoulder Injury</span></div></div></div>
+        <div class="review-card">&#8220;Best sports rehab in Cairo. The energy is clinical but motivating — you feel like you&#8217;re training, not just recovering.&#8221;<div class="review-footer"><div><b>Karim R.</b><span>Sports Injury</span></div></div></div>
+        <div class="review-card">&#8220;They don&#8217;t just treat the injury — they train you to move better permanently. That&#8217;s the real difference.&#8221;<div class="review-footer"><div><b>Nour A.</b><span>Movement Rehabilitation</span></div></div></div>
+        <div class="review-card">&#8220;Dr. Yassine mapped out every step of my recovery. Went from chronic knee pain to running 10K in 8 weeks.&#8221;<div class="review-footer"><div><b>Ahmed K.</b><span>Chronic Knee Pain</span></div></div></div>
+      </div>
+      <div class="flex flex-shrink-0" aria-hidden="true">
+        <div class="review-card">&#8220;Dr. Magdi&#8217;s assessment was incredibly thorough. Within a week I understood my injury better than I had in two years.&#8221;<div class="review-footer"><div><b>Dina S.</b><span>Knee Rehabilitation</span></div></div></div>
+        <div class="review-card">&#8220;The transparency here is unlike any clinic I&#8217;ve visited. They explain every decision — no guesswork, no passive waiting.&#8221;<div class="review-footer"><div><b>Sara M.</b><span>Post-Surgical Recovery</span></div></div></div>
+        <div class="review-card">&#8220;Three months post-surgery and I&#8217;m back training at full capacity. Their rehab protocol is genuinely elite level.&#8221;<div class="review-footer"><div><b>Layla T.</b><span>Athletic Rehabilitation</span></div></div></div>
+        <div class="review-card">&#8220;As a competitive runner, this team gets it. They think in performance terms — not just &#8216;pain gone = done&#8217;.&#8221;<div class="review-footer"><div><b>Youssef H.</b><span>Running Performance</span></div></div></div>
+        <div class="review-card">&#8220;After two failed attempts at physio elsewhere, INSPIRE actually fixed my shoulder.&#8221;<div class="review-footer"><div><b>Omar F.</b><span>Shoulder Injury</span></div></div></div>
+        <div class="review-card">&#8220;Best sports rehab in Cairo. The energy is clinical but motivating.&#8221;<div class="review-footer"><div><b>Karim R.</b><span>Sports Injury</span></div></div></div>
+        <div class="review-card">&#8220;They don&#8217;t just treat the injury — they train you to move better permanently.&#8221;<div class="review-footer"><div><b>Nour A.</b><span>Movement Rehabilitation</span></div></div></div>
+        <div class="review-card">&#8220;Dr. Yassine mapped out every step of my recovery. Went from chronic pain to running 10K in 8 weeks.&#8221;<div class="review-footer"><div><b>Ahmed K.</b><span>Chronic Knee Pain</span></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2 reverse (desktop only) -->
+  <div class="overflow-hidden hidden md:block">
+    <div class="flex marquee-inner-rev">
+      <div class="flex flex-shrink-0">
+        <div class="review-card">&#8220;Dr. Yassine mapped out every step. Went from chronic pain to running 10K in 8 weeks.&#8221;<div class="review-footer"><div><b>Ahmed K.</b><span>Chronic Knee Pain</span></div></div></div>
+        <div class="review-card">&#8220;They train you to move better, not just treat the injury. That&#8217;s the real difference from everywhere else.&#8221;<div class="review-footer"><div><b>Nour A.</b><span>Movement Rehab</span></div></div></div>
+        <div class="review-card">&#8220;Best sports rehab in Cairo by far. The energy here is different — clinical but motivating.&#8221;<div class="review-footer"><div><b>Karim R.</b><span>Sports Injury</span></div></div></div>
+        <div class="review-card">&#8220;After two failed physio attempts elsewhere, INSPIRE actually fixed my shoulder with real hands-on attention.&#8221;<div class="review-footer"><div><b>Omar F.</b><span>Shoulder Injury</span></div></div></div>
+        <div class="review-card">&#8220;As a competitive runner, this team gets it. They think in performance terms, not just recovery.&#8221;<div class="review-footer"><div><b>Youssef H.</b><span>Running Performance</span></div></div></div>
+        <div class="review-card">&#8220;Three months post-surgery and back training at full capacity. Their rehab protocol is elite level.&#8221;<div class="review-footer"><div><b>Layla T.</b><span>Athletic Rehab</span></div></div></div>
+        <div class="review-card">&#8220;The transparency here is unlike any clinic. They explain every decision — no guesswork.&#8221;<div class="review-footer"><div><b>Sara M.</b><span>Post-Surgical Recovery</span></div></div></div>
+        <div class="review-card">&#8220;Dr. Magdi&#8217;s assessment was incredibly thorough. I understood my injury better within a week.&#8221;<div class="review-footer"><div><b>Dina S.</b><span>Knee Rehabilitation</span></div></div></div>
+      </div>
+      <div class="flex flex-shrink-0" aria-hidden="true">
+        <div class="review-card">&#8220;Dr. Yassine mapped out every step. Went from chronic pain to running 10K in 8 weeks.&#8221;<div class="review-footer"><div><b>Ahmed K.</b><span>Chronic Knee Pain</span></div></div></div>
+        <div class="review-card">&#8220;They train you to move better, not just treat the injury. That&#8217;s the real difference.&#8221;<div class="review-footer"><div><b>Nour A.</b><span>Movement Rehab</span></div></div></div>
+        <div class="review-card">&#8220;Best sports rehab in Cairo by far. Clinical but motivating.&#8221;<div class="review-footer"><div><b>Karim R.</b><span>Sports Injury</span></div></div></div>
+        <div class="review-card">&#8220;After two failed attempts elsewhere, INSPIRE actually fixed my shoulder.&#8221;<div class="review-footer"><div><b>Omar F.</b><span>Shoulder Injury</span></div></div></div>
+        <div class="review-card">&#8220;This team thinks in performance terms, not just recovery.&#8221;<div class="review-footer"><div><b>Youssef H.</b><span>Running Performance</span></div></div></div>
+        <div class="review-card">&#8220;Three months post-surgery and back training at full capacity.&#8221;<div class="review-footer"><div><b>Layla T.</b><span>Athletic Rehab</span></div></div></div>
+        <div class="review-card">&#8220;The transparency here is unlike any clinic I&#8217;ve visited.&#8221;<div class="review-footer"><div><b>Sara M.</b><span>Post-Surgical Recovery</span></div></div></div>
+        <div class="review-card">&#8220;Dr. Magdi&#8217;s assessment was incredibly thorough — understood my injury better within a week.&#8221;<div class="review-footer"><div><b>Dina S.</b><span>Knee Rehabilitation</span></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ BOOKING -->
+<section id="booking" class="py-20 md:py-28 px-5 md:px-12 lg:px-20 bg-[#050505] relative overflow-hidden">
+  <!-- Atmospheric background -->
+  <img id="booking-bg-img" src="therapy/image of patient and therapy.jpg" alt="" aria-hidden="true" />
+  <div id="booking-overlay" aria-hidden="true"></div>
+  <div id="booking-glow" aria-hidden="true"></div>
+
+  <div class="max-w-[1400px] mx-auto" style="position:relative;z-index:2;">
+    <div class="mb-10 md:mb-14">
+      <p class="text-[11px] tracking-[0.4em] text-brand-green uppercase mb-4 reveal">Reserve Your Spot</p>
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        <h2 class="font-display text-[clamp(2.4rem,5.5vw,5rem)] text-brand-white leading-[0.9] reveal reveal-d1">
+          Start Your<br/><span class="text-brand-green">Recovery.</span>
+        </h2>
+        <p class="text-brand-gray text-sm leading-relaxed max-w-xs reveal reveal-d2">
+          Simple, fast, no back-and-forth.<br/>Choose your slot and we'll confirm via WhatsApp.
+        </p>
+      </div>
+      <!-- Green accent rule -->
+      <div class="mt-6 reveal reveal-d2" style="width:100%;height:1px;background:linear-gradient(to right,rgba(39,201,63,0.25),transparent);"></div>
+    </div>
+
+    <div class="grid lg:grid-cols-[1fr_360px] gap-8 md:gap-10 items-start">
+      <div class="border reveal" style="border-color:rgba(255,255,255,0.1);background:rgba(8,8,8,0.85);backdrop-filter:blur(8px)">
+        <!-- Step tabs -->
+        <div class="flex border-b border-white/8 overflow-x-auto">
+          <button class="step-btn active-step flex-shrink-0 px-4 py-4 text-[10px] tracking-[0.2em] uppercase cursor-pointer bg-transparent border-0 text-brand-green" onclick="goToStep(0)">Intent</button>
+          <button class="step-btn flex-shrink-0 px-4 py-4 text-[10px] tracking-[0.2em] uppercase text-white/20 cursor-pointer bg-transparent border-0" onclick="goToStep(1)">Branch</button>
+          <button class="step-btn flex-shrink-0 px-4 py-4 text-[10px] tracking-[0.2em] uppercase text-white/20 cursor-pointer bg-transparent border-0" onclick="goToStep(2)">Date</button>
+          <button class="step-btn flex-shrink-0 px-4 py-4 text-[10px] tracking-[0.2em] uppercase text-white/20 cursor-pointer bg-transparent border-0" onclick="goToStep(3)">Time</button>
+          <button class="step-btn flex-shrink-0 px-4 py-4 text-[10px] tracking-[0.2em] uppercase text-white/20 cursor-pointer bg-transparent border-0" onclick="goToStep(4)">Confirm</button>
+        </div>
+
+        <div class="p-6 md:p-8">
+          <!-- Step 0: Intent -->
+          <div id="step-0" class="step-panel active">
+            <p class="text-brand-gray text-sm mb-6">What brings you in?</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <button onclick="selectIntent('session')" class="intent-card selected text-left px-6 py-5 cursor-pointer bg-transparent" id="intent-session">
+                <div class="font-medium text-brand-white text-sm mb-1">Book a Session</div>
+                <div class="text-[11px] text-brand-gray">Follow-up or ongoing treatment</div>
+              </button>
+              <button onclick="selectIntent('assessment')" class="intent-card text-left px-6 py-5 cursor-pointer bg-transparent" id="intent-assessment">
+                <div class="font-medium text-brand-white text-sm mb-1">Book an Assessment</div>
+                <div class="text-[11px] text-brand-gray">First-time thorough evaluation</div>
+              </button>
+            </div>
+            <button onclick="goToStep(1)" class="mt-6 bg-brand-green text-[#050505] text-[11px] font-bold tracking-[0.2em] uppercase px-6 py-3 cursor-pointer border-0 hover:bg-brand-green-2 transition-colors">Continue</button>
+          </div>
+
+          <!-- Step 1: Branch -->
+          <div id="step-1" class="step-panel">
+            <p class="text-brand-gray text-sm mb-6">Choose your branch</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <button onclick="selectBranch('heliopolis')" class="branch-card text-left px-6 py-5 cursor-pointer bg-transparent" id="branch-heliopolis">
+                <div class="flex items-start gap-3">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#27C93F" stroke-width="2" class="mt-0.5 flex-shrink-0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <div>
+                    <div class="text-brand-white text-sm font-medium">Heliopolis</div>
+                    <div class="text-brand-gray text-xs mt-1">Heliopolis, Cairo</div>
+                  </div>
+                </div>
+              </button>
+              <button onclick="selectBranch('nasr-city')" class="branch-card text-left px-6 py-5 cursor-pointer bg-transparent" id="branch-nasr-city">
+                <div class="flex items-start gap-3">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#27C93F" stroke-width="2" class="mt-0.5 flex-shrink-0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <div>
+                    <div class="text-brand-white text-sm font-medium">Cairo Stadium</div>
+                    <div class="text-brand-gray text-xs mt-1">Nasr City, Cairo</div>
+                  </div>
+                </div>
+              </button>
+            </div>
+            <button onclick="prevStep()" class="mt-6 text-[11px] tracking-[0.2em] text-brand-gray uppercase hover:text-brand-white transition-colors cursor-pointer bg-transparent border-0">← Back</button>
+          </div>
+
+          <!-- Step 2: Date -->
+          <div id="step-2" class="step-panel">
+            <p class="text-brand-gray text-sm mb-6">Choose a date</p>
+            <div class="max-w-sm">
+              <div class="flex items-center justify-between mb-5">
+                <button onclick="prevMonth()" class="p-2 text-brand-gray hover:text-brand-white transition-colors cursor-pointer bg-transparent border-0">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+                <span id="cal-month-label" class="text-brand-white text-sm font-medium tracking-wide"></span>
+                <button onclick="nextMonth()" class="p-2 text-brand-gray hover:text-brand-white transition-colors cursor-pointer bg-transparent border-0">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+              </div>
+              <div class="grid grid-cols-7 mb-2" id="day-headers"></div>
+              <div class="grid grid-cols-7 gap-1" id="cal-grid"></div>
+            </div>
+            <button onclick="prevStep()" class="mt-6 text-[11px] tracking-[0.2em] text-brand-gray uppercase hover:text-brand-white transition-colors cursor-pointer bg-transparent border-0">← Back</button>
+          </div>
+
+          <!-- Step 3: Time -->
+          <div id="step-3" class="step-panel">
+            <p class="text-brand-gray text-sm mb-6">Pick a time</p>
+            <div class="grid grid-cols-3 gap-2" id="time-grid"></div>
+            <button onclick="prevStep()" class="mt-6 text-[11px] tracking-[0.2em] text-brand-gray uppercase hover:text-brand-white transition-colors cursor-pointer bg-transparent border-0">← Back</button>
+          </div>
+
+          <!-- Step 4: Confirm -->
+          <div id="step-4" class="step-panel">
+            <p class="text-brand-gray text-sm mb-6">Confirm your booking</p>
+            <div class="border border-white/8 p-5 mb-6 space-y-3">
+              <div class="flex justify-between items-center"><span class="text-[11px] tracking-[0.15em] text-brand-gray uppercase">Type</span><span id="confirm-intent" class="text-brand-white text-sm font-medium">Session</span></div>
+              <div class="flex justify-between items-center"><span class="text-[11px] tracking-[0.15em] text-brand-gray uppercase">Branch</span><span id="confirm-branch" class="text-brand-white text-sm font-medium">—</span></div>
+              <div class="flex justify-between items-center"><span class="text-[11px] tracking-[0.15em] text-brand-gray uppercase">Date</span><span id="confirm-date" class="text-brand-white text-sm font-medium">—</span></div>
+              <div class="flex justify-between items-center"><span class="text-[11px] tracking-[0.15em] text-brand-gray uppercase">Time</span><span id="confirm-time" class="text-brand-white text-sm font-medium">—</span></div>
+            </div>
+            <div class="flex flex-col gap-3">
+              <a id="whatsapp-btn" href="#" target="_blank" class="flex items-center justify-center gap-3 bg-brand-green text-[#050505] font-semibold text-sm tracking-[0.1em] py-4 cursor-pointer hover:bg-brand-green-2 transition-colors">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                Confirm via WhatsApp
+              </a>
+              <a href="tel:+201200777828" class="flex items-center justify-center gap-2 border border-white/15 text-brand-gray text-sm tracking-[0.1em] py-4 hover:border-white/30 hover:text-brand-white transition-colors cursor-pointer">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.6a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.62a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Call to Book
+              </a>
+            </div>
+            <button onclick="prevStep()" class="mt-6 text-[11px] tracking-[0.2em] text-brand-gray uppercase hover:text-brand-white transition-colors cursor-pointer bg-transparent border-0">← Back</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="space-y-4 reveal reveal-d2">
+        <!-- Therapy image accent -->
+        <div class="relative overflow-hidden" style="aspect-ratio:4/3;">
+          <img src="therapy/therapy 4.jpg" alt="" class="w-full h-full object-cover" style="filter:brightness(0.6) saturate(0.5);" />
+          <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(5,5,5,0.85) 0%,transparent 60%);"></div>
+          <div class="absolute bottom-0 left-0 p-5">
+            <p style="font-size:10px;letter-spacing:0.35em;color:#27C93F;text-transform:uppercase;margin-bottom:6px;">Expert care</p>
+            <p class="text-brand-white text-sm font-medium leading-tight">Hands-on therapy.<br/>Intelligent recovery.</p>
+          </div>
+        </div>
+
+        <div class="p-5" style="border:1px solid rgba(255,255,255,0.08);background:rgba(8,8,8,0.85);backdrop-filter:blur(8px);">
+          <p class="text-[10px] tracking-[0.35em] text-brand-green uppercase mb-3">What to Expect</p>
+          <ul class="space-y-2.5">
+            <li class="flex items-start gap-3 text-sm text-brand-gray"><span style="margin-top:7px;width:4px;height:4px;border-radius:50%;background:#27C93F;flex-shrink:0;display:inline-block;"></span>Comprehensive movement assessment</li>
+            <li class="flex items-start gap-3 text-sm text-brand-gray"><span style="margin-top:7px;width:4px;height:4px;border-radius:50%;background:#27C93F;flex-shrink:0;display:inline-block;"></span>Transparent treatment plan</li>
+            <li class="flex items-start gap-3 text-sm text-brand-gray"><span style="margin-top:7px;width:4px;height:4px;border-radius:50%;background:#27C93F;flex-shrink:0;display:inline-block;"></span>Manual, hands-on therapy</li>
+            <li class="flex items-start gap-3 text-sm text-brand-gray"><span style="margin-top:7px;width:4px;height:4px;border-radius:50%;background:#27C93F;flex-shrink:0;display:inline-block;"></span>Progressive rehab protocol</li>
+          </ul>
+        </div>
+
+        <div class="p-5" style="border:1px solid rgba(39,201,63,0.15);background:rgba(8,8,8,0.85);backdrop-filter:blur(8px);">
+          <p class="text-[10px] tracking-[0.35em] text-brand-green uppercase mb-2">Call to Book</p>
+          <p class="text-brand-gray text-xs mb-3">Prefer to speak with the team?</p>
+          <a href="tel:+201200777828" class="text-brand-white font-semibold hover:text-brand-green transition-colors" style="font-size:1.1rem;">+20 120 077 7828</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ LOCATIONS -->
+<section id="locations" class="py-16 md:py-24 px-5 md:px-12 lg:px-20 bg-[#050505] border-t border-white/5">
+  <div class="max-w-[1400px] mx-auto">
+    <div class="mb-12 md:mb-16">
+      <p class="text-[11px] tracking-[0.4em] text-brand-green uppercase mb-4 reveal">Find Us</p>
+      <h2 class="font-display text-[clamp(2.4rem,5.5vw,5rem)] text-brand-white leading-[0.9] reveal reveal-d1">
+        Two Locations.<br/><span class="text-brand-green">One Standard.</span>
+      </h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-5 md:gap-6">
+      <!-- Heliopolis -->
+      <div class="border border-white/8 bg-[#0a0a0a] overflow-hidden reveal">
+        <div class="w-full h-48 md:h-56 overflow-hidden bg-[#111]">
+          <iframe src="https://maps.google.com/maps?q=30.09549822621987,31.331792588356386&output=embed&zoom=15&hl=en" width="100%" height="100%" style="border:0;filter:invert(90%) hue-rotate(180deg) saturate(0.6);" allowfullscreen="" loading="lazy" title="Heliopolis branch"></iframe>
+        </div>
+        <div class="p-6 md:p-7">
+          <div class="flex items-start justify-between mb-5">
+            <div>
+              <p class="text-[10px] tracking-[0.35em] text-brand-green uppercase mb-2">Heliopolis</p>
+              <h3 class="font-display text-[clamp(1.6rem,3.5vw,2.4rem)] text-brand-white">Heliopolis Branch</h3>
+            </div>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#27C93F" stroke-width="1.5" class="mt-1"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="flex items-center gap-2 text-brand-gray text-sm mb-6">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:0.5;flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Sat – Thu: 9:00 AM – 8:00 PM
+          </div>
+          <a href="https://maps.app.goo.gl/rQq9p3YybFWmzVhh8" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-brand-green text-[#050505] text-[11px] font-bold tracking-[0.2em] uppercase px-5 py-3 hover:bg-brand-green-2 transition-colors">
+            Get Directions
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Nasr City -->
+      <div class="border border-white/8 bg-[#0a0a0a] overflow-hidden reveal reveal-d1">
+        <div class="w-full h-48 md:h-56 overflow-hidden bg-[#111]">
+          <iframe src="https://maps.google.com/maps?q=30.06877030260157,31.307254011096834&output=embed&zoom=15&hl=en" width="100%" height="100%" style="border:0;filter:invert(90%) hue-rotate(180deg) saturate(0.6);" allowfullscreen="" loading="lazy" title="Cairo Stadium branch"></iframe>
+        </div>
+        <div class="p-6 md:p-7">
+          <div class="flex items-start justify-between mb-5">
+            <div>
+              <p class="text-[10px] tracking-[0.35em] text-brand-green uppercase mb-2">Nasr City</p>
+              <h3 class="font-display text-[clamp(1.6rem,3.5vw,2.4rem)] text-brand-white">Cairo Stadium</h3>
+            </div>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#27C93F" stroke-width="1.5" class="mt-1"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="flex items-center gap-2 text-brand-gray text-sm mb-6">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:0.5;flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Sat – Thu: 9:00 AM – 8:00 PM
+          </div>
+          <a href="https://maps.app.goo.gl/Mn2ZKifQsuhrDgKR6" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-brand-green text-[#050505] text-[11px] font-bold tracking-[0.2em] uppercase px-5 py-3 hover:bg-brand-green-2 transition-colors">
+            Get Directions
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ FAQ -->
+<section class="py-20 md:py-32 px-5 md:px-12 lg:px-20 bg-[#080808] border-t border-white/5">
+  <div class="max-w-[1400px] mx-auto">
+    <div class="grid md:grid-cols-[1fr_2fr] gap-12 md:gap-20 items-start">
+      <!-- Left: heading -->
+      <div class="reveal">
+        <p class="text-[11px] tracking-[0.4em] text-brand-green uppercase mb-4">Common Questions</p>
+        <h2 class="font-display text-[clamp(2.4rem,5vw,4.5rem)] uppercase text-brand-white leading-[0.9]">
+          Got<br/><span class="text-brand-green">Questions?</span>
+        </h2>
+        <p class="text-brand-gray text-sm leading-relaxed mt-6 max-w-xs">
+          Everything you need to know before your first visit to our physiotherapy clinic in Cairo.
+        </p>
+      </div>
+      <!-- Right: accordion -->
+      <div class="space-y-0 reveal reveal-d1">
+        <!-- Q1 -->
+        <div class="faq-item border-b border-white/8">
+          <button class="faq-btn w-full flex items-center justify-between gap-4 py-5 text-left cursor-pointer" aria-expanded="false">
+            <span class="text-brand-white text-sm font-medium leading-snug">Do I need a referral to book a session?</span>
+            <span class="faq-icon flex-shrink-0 w-6 h-6 border border-white/20 flex items-center justify-center transition-transform duration-300">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6" class="faq-h"/></svg>
+            </span>
+          </button>
+          <div class="faq-body overflow-hidden" style="max-height:0;transition:max-height 0.35s cubic-bezier(0.4,0,0.2,1);">
+            <p class="text-brand-gray text-sm leading-relaxed pb-5 pr-10">No referral needed. You can book directly through our website or by calling us. We'll assess your condition on arrival and design a personalised treatment plan.</p>
+          </div>
+        </div>
+        <!-- Q2 -->
+        <div class="faq-item border-b border-white/8">
+          <button class="faq-btn w-full flex items-center justify-between gap-4 py-5 text-left cursor-pointer" aria-expanded="false">
+            <span class="text-brand-white text-sm font-medium leading-snug">What conditions do you treat?</span>
+            <span class="faq-icon flex-shrink-0 w-6 h-6 border border-white/20 flex items-center justify-center transition-transform duration-300">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6" class="faq-h"/></svg>
+            </span>
+          </button>
+          <div class="faq-body overflow-hidden" style="max-height:0;transition:max-height 0.35s cubic-bezier(0.4,0,0.2,1);">
+            <p class="text-brand-gray text-sm leading-relaxed pb-5 pr-10">We treat a wide range of conditions including sports injuries, back and neck pain, post-surgical rehabilitation, joint problems, muscle strains, and chronic pain. Our team specialises in manual therapy and athlete rehab.</p>
+          </div>
+        </div>
+        <!-- Q3 -->
+        <div class="faq-item border-b border-white/8">
+          <button class="faq-btn w-full flex items-center justify-between gap-4 py-5 text-left cursor-pointer" aria-expanded="false">
+            <span class="text-brand-white text-sm font-medium leading-snug">How long is a typical session?</span>
+            <span class="faq-icon flex-shrink-0 w-6 h-6 border border-white/20 flex items-center justify-center transition-transform duration-300">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6" class="faq-h"/></svg>
+            </span>
+          </button>
+          <div class="faq-body overflow-hidden" style="max-height:0;transition:max-height 0.35s cubic-bezier(0.4,0,0.2,1);">
+            <p class="text-brand-gray text-sm leading-relaxed pb-5 pr-10">Initial assessment sessions are typically 60 minutes. Follow-up treatment sessions run 45–60 minutes depending on your plan. We never rush — every session is focused and unhurried.</p>
+          </div>
+        </div>
+        <!-- Q4 -->
+        <div class="faq-item border-b border-white/8">
+          <button class="faq-btn w-full flex items-center justify-between gap-4 py-5 text-left cursor-pointer" aria-expanded="false">
+            <span class="text-brand-white text-sm font-medium leading-snug">Do you work with professional athletes?</span>
+            <span class="faq-icon flex-shrink-0 w-6 h-6 border border-white/20 flex items-center justify-center transition-transform duration-300">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6" class="faq-h"/></svg>
+            </span>
+          </button>
+          <div class="faq-body overflow-hidden" style="max-height:0;transition:max-height 0.35s cubic-bezier(0.4,0,0.2,1);">
+            <p class="text-brand-gray text-sm leading-relaxed pb-5 pr-10">Yes. Our sports injury clinic serves competitive athletes across football, martial arts, tennis, swimming, and more. We also work with weekend warriors and active individuals — the same elite standard applies to every patient.</p>
+          </div>
+        </div>
+        <!-- Q5 -->
+        <div class="faq-item border-b border-white/8">
+          <button class="faq-btn w-full flex items-center justify-between gap-4 py-5 text-left cursor-pointer" aria-expanded="false">
+            <span class="text-brand-white text-sm font-medium leading-snug">Where are your clinics located?</span>
+            <span class="faq-icon flex-shrink-0 w-6 h-6 border border-white/20 flex items-center justify-center transition-transform duration-300">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6" class="faq-h"/></svg>
+            </span>
+          </button>
+          <div class="faq-body overflow-hidden" style="max-height:0;transition:max-height 0.35s cubic-bezier(0.4,0,0.2,1);">
+            <p class="text-brand-gray text-sm leading-relaxed pb-5 pr-10">We have two locations in Cairo: our Heliopolis clinic and our Cairo Stadium branch in Nasr City. Both are fully equipped with the same clinical standard. View directions in the Locations section below.</p>
+          </div>
+        </div>
+        <!-- Q6 -->
+        <div class="faq-item border-b border-white/8">
+          <button class="faq-btn w-full flex items-center justify-between gap-4 py-5 text-left cursor-pointer" aria-expanded="false">
+            <span class="text-brand-white text-sm font-medium leading-snug">What is manual therapy and how does it help?</span>
+            <span class="faq-icon flex-shrink-0 w-6 h-6 border border-white/20 flex items-center justify-center transition-transform duration-300">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6" class="faq-h"/></svg>
+            </span>
+          </button>
+          <div class="faq-body overflow-hidden" style="max-height:0;transition:max-height 0.35s cubic-bezier(0.4,0,0.2,1);">
+            <p class="text-brand-gray text-sm leading-relaxed pb-5 pr-10">Manual therapy is a hands-on clinical technique used to mobilise joints, release soft tissue restrictions, and restore natural movement patterns. It's a core part of how we treat pain and dysfunction — fast, targeted, and evidence-based.</p>
+          </div>
+        </div>
+        <!-- Q7 -->
+        <div class="faq-item border-b border-white/8">
+          <button class="faq-btn w-full flex items-center justify-between gap-4 py-5 text-left cursor-pointer" aria-expanded="false">
+            <span class="text-brand-white text-sm font-medium leading-snug">How do I book an appointment?</span>
+            <span class="faq-icon flex-shrink-0 w-6 h-6 border border-white/20 flex items-center justify-center transition-transform duration-300">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6" class="faq-h"/></svg>
+            </span>
+          </button>
+          <div class="faq-body overflow-hidden" style="max-height:0;transition:max-height 0.35s cubic-bezier(0.4,0,0.2,1);">
+            <p class="text-brand-gray text-sm leading-relaxed pb-5 pr-10">Fill in the booking form on this page, message us on WhatsApp, or call directly on +20 120 077 7828. We'll confirm your appointment and send you everything you need before your first visit.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ FOOTER -->
+<footer class="bg-[#050505] border-t border-white/5">
+  <!-- CTA strip -->
+  <div class="border-b border-white/5 py-12 md:py-16 px-5 md:px-12 lg:px-20">
+    <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+      <div>
+        <p class="text-[11px] tracking-[0.4em] text-brand-green uppercase mb-3">Ready to Start?</p>
+        <h2 class="font-display text-[clamp(2rem,4.5vw,4rem)] text-brand-white leading-[0.9]">
+          Your Recovery<br/><span class="text-brand-green">Begins Here.</span>
+        </h2>
+      </div>
+      <a href="#booking" class="inline-flex items-center bg-brand-green text-[#050505] text-sm font-bold tracking-[0.2em] uppercase px-8 py-4 hover:bg-brand-green-2 transition-colors flex-shrink-0">Book a Session</a>
+    </div>
+  </div>
+
+  <div class="px-5 md:px-12 lg:px-20 py-12 md:py-16">
+    <div class="max-w-[1400px] mx-auto">
+      <div class="grid md:grid-cols-[1fr_auto_auto] gap-10 md:gap-16 mb-12">
+        <div>
+          <img src="logo/inspire logo no background.png" alt="INSPIRE" style="height:40px;width:auto;object-fit:contain;object-position:left;margin-bottom:1.25rem;" />
+          <p class="text-brand-gray text-sm leading-relaxed max-w-xs mb-5">Elite physiotherapy &amp; sports injury recovery in Cairo. Manual therapy. Smart rehab. Real results.</p>
+          <a href="tel:+201200777828" class="text-brand-white text-base font-semibold hover:text-brand-green transition-colors">+20 120 077 7828</a>
+        </div>
+        <div>
+          <p class="text-[10px] tracking-[0.35em] text-brand-gray uppercase mb-5">Navigation</p>
+          <ul class="space-y-3">
+            <li><a href="#philosophy" class="text-brand-gray text-sm hover:text-brand-white transition-colors">Approach</a></li>
+            <li><a href="#team" class="text-brand-gray text-sm hover:text-brand-white transition-colors">Team</a></li>
+            <li><a href="#booking" class="text-brand-gray text-sm hover:text-brand-white transition-colors">Book Now</a></li>
+            <li><a href="#locations" class="text-brand-gray text-sm hover:text-brand-white transition-colors">Locations</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-[10px] tracking-[0.35em] text-brand-gray uppercase mb-5">Locations</p>
+          <div class="space-y-5">
+            <div>
+              <p class="text-brand-white text-sm font-medium mb-1">Heliopolis</p>
+              <a href="https://maps.app.goo.gl/rQq9p3YybFWmzVhh8" target="_blank" rel="noopener noreferrer" class="text-brand-gray text-xs hover:text-brand-green transition-colors">View on Maps →</a>
+            </div>
+            <div>
+              <p class="text-brand-white text-sm font-medium mb-1">Cairo Stadium, Nasr City</p>
+              <a href="https://maps.app.goo.gl/Mn2ZKifQsuhrDgKR6" target="_blank" rel="noopener noreferrer" class="text-brand-gray text-xs hover:text-brand-green transition-colors">View on Maps →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-white/5 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-brand-gray text-[11px] tracking-wide">© 2025 INSPIRE Physical Therapy &amp; Sports Injury. All rights reserved.</p>
+        <div class="flex items-center gap-5">
+          <a href="https://www.instagram.com/inspire.physioclinic/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-brand-gray hover:text-brand-white transition-colors">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://www.facebook.com/inspire.physioclinic" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="text-brand-gray hover:text-brand-white transition-colors">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@inspireclinic" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="text-brand-gray hover:text-brand-white transition-colors">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.28 8.28 0 0 0 4.84 1.54V6.78a4.85 4.85 0 0 1-1.07-.09Z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════ BOTTOM STICKY BAR (mobile) -->
+<div id="bottom-bar">
+  <a href="tel:+201200777828"
+     style="flex:1;display:flex;align-items:center;justify-content:center;background:#0d0d0d;color:#F5F5F5;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;padding:1rem 0.5rem;text-decoration:none;border-top:1px solid rgba(255,255,255,0.08);border-right:1px solid rgba(255,255,255,0.06);transition:background 0.2s;"
+     onmouseover="this.style.background='#1a1a1a'" onmouseout="this.style.background='#0d0d0d'">
+    Call Now
+  </a>
+  <a href="#booking"
+     style="flex:1;display:flex;align-items:center;justify-content:center;background:#27C93F;color:#050505;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;padding:1rem 0.5rem;text-decoration:none;transition:background 0.2s;"
+     onmouseover="this.style.background='#36B44A'" onmouseout="this.style.background='#27C93F'">
+    Book Now
+  </a>
+</div>
+
+<!-- Review card styles -->
+<style>
+.review-card {
+  flex-shrink: 0;
+  width: 310px;
+  border: 1px solid rgba(255,255,255,0.07);
+  background: #0a0a0a;
+  padding: 1.5rem 1.5rem 1.25rem;
+  margin-right: 0.875rem;
+  font-size: 0.875rem;
+  color: #F5F5F5;
+  line-height: 1.65;
+}
+.review-card::before {
+  content: '★ ★ ★ ★ ★';
+  display: block;
+  color: #27C93F;
+  font-size: 9px;
+  letter-spacing: 4px;
+  margin-bottom: 0.75rem;
+  opacity: 0.9;
+}
+.review-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: 1.1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.review-footer b { display: block; font-weight: 600; font-size: 0.75rem; color: #F5F5F5; }
+.review-footer span { display: block; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #B8B8B8; margin-top: 2px; }
+</style>
+
+<!-- ═══════════════════════════════════════ JAVASCRIPT -->
+<script>
+  // ── Loading screen ───────────────────────────────────────
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loading').classList.add('hide');
+      setTimeout(() => document.getElementById('loading').remove(), 800);
+      // Reveal hero elements
+      document.querySelectorAll('#hero-content .reveal').forEach((el, i) => {
+        setTimeout(() => el.classList.add('visible'), i * 120);
+      });
+    }, 2400);
+  });
+
+  // ── Navbar scroll ────────────────────────────────────────
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  // ── Mobile menu ──────────────────────────────────────────
+  const menu = document.getElementById('mobile-menu');
+  let menuOpen = false;
+  function toggleMenu() {
+    menuOpen = !menuOpen;
+    menu.classList.toggle('open', menuOpen);
+    const [h1,h2,h3] = [document.getElementById('h1'),document.getElementById('h2'),document.getElementById('h3')];
+    h1.style.transform = menuOpen ? 'rotate(45deg) translateY(7px)' : '';
+    h2.style.opacity = menuOpen ? '0' : '';
+    h3.style.transform = menuOpen ? 'rotate(-45deg) translateY(-7px)' : '';
+  }
+
+  // ── Scroll reveal ────────────────────────────────────────
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '-80px 0px' });
+  revealEls.forEach(el => {
+    // Skip hero elements — handled by loading timer
+    if (!el.closest('#hero-content')) revealObserver.observe(el);
+  });
+
+  // ── Video parallax ───────────────────────────────────────
+  const heroWrap = document.getElementById('hero-video-wrap');
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / window.innerHeight;
+    heroWrap.style.transform = `scale(1.06) translateY(${pct * 12}%)`;
+  }, { passive: true });
+
+  // ── Booking logic ────────────────────────────────────────
+  let currentStep = 0;
+  let bookingState = { intent: 'session', branch: null, day: null, month: null, year: null, time: null };
+  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const today = new Date();
+  let calMonth = today.getMonth(), calYear = today.getFullYear();
+
+  function goToStep(n) {
+    if (n > currentStep && n > 1 && !bookingState.branch && n >= 2) return;
+    document.getElementById('step-' + currentStep).classList.remove('active');
+    document.querySelectorAll('.step-btn')[currentStep].classList.remove('active-step');
+    document.querySelectorAll('.step-btn')[currentStep].style.color = '';
+    currentStep = n;
+    document.getElementById('step-' + currentStep).classList.add('active');
+    const btn = document.querySelectorAll('.step-btn')[currentStep];
+    btn.classList.add('active-step');
+    if (n === 2) renderCalendar();
+    if (n === 3) renderTimeSlots();
+    if (n === 4) renderConfirm();
+  }
+  function prevStep() { if (currentStep > 0) goToStep(currentStep - 1); }
+
+  function selectIntent(val) {
+    bookingState.intent = val;
+    document.querySelectorAll('.intent-card').forEach(c => c.classList.remove('selected'));
+    document.getElementById('intent-' + val).classList.add('selected');
+    setTimeout(() => goToStep(1), 150);
+  }
+  function selectBranch(val) {
+    bookingState.branch = val;
+    document.querySelectorAll('.branch-card').forEach(c => c.classList.remove('selected'));
+    document.getElementById('branch-' + val).classList.add('selected');
+    setTimeout(() => goToStep(2), 150);
+  }
+
+  function renderCalendar() {
+    document.getElementById('cal-month-label').textContent = monthNames[calMonth] + ' ' + calYear;
+    const days = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+    const hdr = document.getElementById('day-headers');
+    hdr.innerHTML = days.map(d => `<div style="text-align:center;font-size:10px;letter-spacing:0.1em;color:#B8B8B8;padding:4px 0;">${d}</div>`).join('');
+    const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
+    const firstDay = new Date(calYear, calMonth, 1).getDay();
+    const grid = document.getElementById('cal-grid');
+    let html = '<div></div>'.repeat(firstDay);
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dt = new Date(calYear, calMonth, d); dt.setHours(0,0,0,0);
+      const t = new Date(); t.setHours(0,0,0,0);
+      const past = dt < t;
+      const sel = bookingState.day === d && bookingState.month === calMonth && bookingState.year === calYear;
+      html += `<div class="cal-day${past?' past':''}${sel?' selected':''}" onclick="${past?'':''}" data-day="${d}">${d}</div>`;
+    }
+    grid.innerHTML = html;
+    grid.querySelectorAll('.cal-day:not(.past)').forEach(el => {
+      el.addEventListener('click', () => {
+        const d = +el.dataset.day;
+        bookingState.day = d; bookingState.month = calMonth; bookingState.year = calYear;
+        grid.querySelectorAll('.cal-day').forEach(x => x.classList.remove('selected'));
+        el.classList.add('selected');
+        setTimeout(() => goToStep(3), 200);
+      });
+    });
+  }
+  function prevMonth() {
+    if (calMonth === 0) { calMonth = 11; calYear--; } else calMonth--;
+    renderCalendar();
+  }
+  function nextMonth() {
+    if (calMonth === 11) { calMonth = 0; calYear++; } else calMonth++;
+    renderCalendar();
+  }
+
+  const timeSlots = ['9:00 AM','10:00 AM','11:00 AM','12:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM'];
+  function renderTimeSlots() {
+    const grid = document.getElementById('time-grid');
+    grid.innerHTML = timeSlots.map(t =>
+      `<button class="time-slot${bookingState.time===t?' selected':''} py-3 text-xs tracking-wide cursor-pointer bg-transparent" data-time="${t}">${t}</button>`
+    ).join('');
+    grid.querySelectorAll('.time-slot').forEach(el => {
+      el.addEventListener('click', () => {
+        bookingState.time = el.dataset.time;
+        grid.querySelectorAll('.time-slot').forEach(x => x.classList.remove('selected'));
+        el.classList.add('selected');
+        setTimeout(() => goToStep(4), 200);
+      });
+    });
+  }
+
+  function renderConfirm() {
+    document.getElementById('confirm-intent').textContent = bookingState.intent === 'assessment' ? 'Assessment' : 'Session';
+    const branchNames = { 'heliopolis': 'Heliopolis', 'nasr-city': 'Cairo Stadium' };
+    document.getElementById('confirm-branch').textContent = branchNames[bookingState.branch] || '—';
+    document.getElementById('confirm-date').textContent = bookingState.day
+      ? `${monthNames[bookingState.month]} ${bookingState.day}, ${bookingState.year}` : '—';
+    document.getElementById('confirm-time').textContent = bookingState.time || '—';
+    const msg = `Hello INSPIRE Physical Therapy! I'd like to ${bookingState.intent==='assessment'?'book an assessment':'book a session'} at the ${branchNames[bookingState.branch]||''} branch${bookingState.day?` on ${monthNames[bookingState.month]} ${bookingState.day}, ${bookingState.year}`:''}${bookingState.time?` at ${bookingState.time}`:''}.`;
+    document.getElementById('whatsapp-btn').href = 'https://wa.me/201200777828?text=' + encodeURIComponent(msg);
+  }
+
+  // ── FAQ Accordion ─────────────────────────────────────────
+  document.querySelectorAll('.faq-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const body = item.querySelector('.faq-body');
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(el => {
+        el.querySelector('.faq-btn').setAttribute('aria-expanded', 'false');
+        el.querySelector('.faq-body').style.maxHeight = '0';
+        el.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
+      });
+
+      // Open clicked if it was closed
+      if (!isOpen) {
+        btn.setAttribute('aria-expanded', 'true');
+        body.style.maxHeight = body.scrollHeight + 'px';
+        item.querySelector('.faq-icon').style.transform = 'rotate(45deg)';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
