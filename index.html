@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>INSPIRE Physical Therapy & Sports Injury | Stay Limitless</title>
-  <meta name="description" content="Elite physiotherapy and sports injury clinic in Cairo. Manual therapy, smart rehab, and real performance recovery." />
+  <title>INSPIRE Physiotherapy Cairo | Sports Injury &amp; Manual Therapy Clinic</title>
+  <meta name="description" content="Cairo's physiotherapy and sports injury clinic. Manual therapy, movement assessment, and performance rehab for athletes. Two locations: Heliopolis and Nasr City." />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -166,6 +166,28 @@
 
     /* Hero brand marker at top */
     .hero-top-marker { display: flex; align-items: center; gap: 10px; }
+
+    /* Equipment section */
+    .equip-card { padding: 2rem 0; }
+    @media (min-width: 768px) { .equip-card { padding: 2.5rem 2rem; } }
+    .equip-card-tag {
+      display: inline-block;
+      padding: 3px 10px;
+      border: 1px solid rgba(39,201,63,0.28);
+      margin-bottom: 1.2rem;
+    }
+    /* Parallax bg element extends beyond container to allow offset travel */
+    #equip-parallax-bg {
+      position: absolute;
+      top: -80px; bottom: -80px; left: 0; right: 0;
+      background-image: url('pdf-images/image_105.jpg');
+      background-size: cover;
+      background-position: center 30%;
+      will-change: transform;
+    }
+    @media (max-width: 767px) {
+      #equip-parallax-bg { top: 0; bottom: 0; }
+    }
   </style>
 </head>
 <body>
@@ -187,6 +209,7 @@
 
     <nav class="hidden md:flex items-center gap-8">
       <a href="#philosophy" class="text-[11px] tracking-[0.25em] text-brand-gray uppercase hover:text-brand-white transition-colors">Approach</a>
+      <a href="#equipment" class="text-[11px] tracking-[0.25em] text-brand-gray uppercase hover:text-brand-white transition-colors">Services</a>
       <a href="#team" class="text-[11px] tracking-[0.25em] text-brand-gray uppercase hover:text-brand-white transition-colors">Team</a>
       <a href="#locations" class="text-[11px] tracking-[0.25em] text-brand-gray uppercase hover:text-brand-white transition-colors">Locations</a>
     </nav>
@@ -206,6 +229,7 @@
   <!-- Mobile menu -->
   <div id="mobile-menu" class="flex-col px-6 pt-6 pb-8 gap-6 bg-[#050505]/98 backdrop-blur-xl border-b border-white/5 md:hidden">
     <a href="#philosophy" onclick="toggleMenu()" class="text-sm tracking-[0.25em] text-brand-gray uppercase">Approach</a>
+    <a href="#equipment" onclick="toggleMenu()" class="text-sm tracking-[0.25em] text-brand-gray uppercase">Services</a>
     <a href="#team" onclick="toggleMenu()" class="text-sm tracking-[0.25em] text-brand-gray uppercase">Team</a>
     <a href="#locations" onclick="toggleMenu()" class="text-sm tracking-[0.25em] text-brand-gray uppercase">Locations</a>
     <a href="tel:+201200777828" class="text-[11px] tracking-[0.15em] text-brand-gray uppercase text-center py-3 border border-white/10">+20 120 077 7828</a>
@@ -247,9 +271,8 @@
       <div class="mb-5 reveal reveal-d1" style="width:3.5rem;height:1px;background:rgba(255,255,255,0.12);"></div>
 
       <div class="flex flex-col sm:flex-row sm:items-end gap-5 sm:gap-10 reveal reveal-d2">
-        <p class="text-brand-gray leading-relaxed" style="font-size:clamp(0.8rem,1.4vw,1rem);max-width:18rem;">
-          Cairo's leading physiotherapy &amp; sports injury clinic.
-          <br/>Manual therapy. Smart rehab. Built for athletes.
+        <p class="text-brand-gray leading-relaxed" style="font-size:clamp(0.8rem,1.4vw,1rem);max-width:20rem;">
+          Most people come to us after something else didn't work. We fix that.
         </p>
         <div style="display:flex;gap:0.75rem;flex-shrink:0;">
           <a href="#booking" style="display:inline-flex;align-items:center;background:#27C93F;color:#050505;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;padding:0.875rem 1.5rem;text-decoration:none;transition:background 0.3s;cursor:pointer;" onmouseover="this.style.background='#36B44A'" onmouseout="this.style.background='#27C93F'">Book a Session</a>
@@ -282,7 +305,8 @@
         <span class="text-[11px] tracking-[0.35em] text-brand-green uppercase reveal">01</span>
         <h3 class="font-display text-[clamp(2.6rem,6vw,5.5rem)] text-brand-white mt-3 mb-5 reveal reveal-d1">Assessment<br/>First. Always.</h3>
         <div class="h-px w-16 bg-brand-green mb-5 reveal reveal-d2" style="transform-origin:left;transform:scaleX(0);transition:transform 0.7s 0.35s cubic-bezier(0.76,0,0.24,1),opacity 0.7s"></div>
-        <p class="text-brand-gray text-base leading-relaxed max-w-md reveal reveal-d3">We don't treat the symptom. We find the source. Every session begins with a precise movement assessment — because real recovery demands real understanding.</p>
+        <p class="text-brand-gray text-base leading-relaxed max-w-md reveal reveal-d3">Most people who come to us have already tried something that didn&rsquo;t work. That&rsquo;s usually because the real problem was never properly identified.</p>
+        <p class="text-brand-gray text-base leading-relaxed max-w-md reveal reveal-d3" style="margin-top:1rem;">Before we treat anything, we watch how you move, ask the right questions, and figure out what&rsquo;s actually going on. Not just where it hurts.</p>
       </div>
       <div class="relative aspect-[4/5] img-zoom reveal reveal-d1">
         <img src="therapy/therapy.jpg" alt="Assessment" class="w-full h-full object-cover" />
@@ -298,7 +322,9 @@
         <span class="text-[11px] tracking-[0.35em] text-brand-green uppercase reveal">02</span>
         <h3 class="font-display text-[clamp(2.6rem,6vw,5.5rem)] text-brand-white mt-3 mb-5 reveal reveal-d1">Hands-On.<br/>Not Machine-Led.</h3>
         <div class="h-px w-16 bg-brand-green mb-5 reveal reveal-d2" style="transform-origin:left"></div>
-        <p class="text-brand-gray text-base leading-relaxed max-w-md reveal reveal-d3">Manual therapy is at the core of everything we do. Expert hands, intelligent touch, and deep anatomical knowledge — not passive machines and heat packs.</p>
+        <p class="text-brand-gray text-base leading-relaxed max-w-md reveal reveal-d3">We don&rsquo;t sit you on a machine and leave the room.</p>
+        <p class="text-brand-gray text-base leading-relaxed max-w-md reveal reveal-d3" style="margin-top:1rem;">Every session is hands-on. We work on your joints, your tissue, and your movement directly.</p>
+        <p class="text-brand-gray text-base leading-relaxed max-w-md reveal reveal-d3" style="margin-top:1rem;">It takes more time and more precision, but it&rsquo;s what actually gets people better.</p>
       </div>
       <div class="relative aspect-[4/5] img-zoom md:order-1 reveal reveal-d1">
         <img src="therapy/image of therapy 2.jpg" alt="Manual therapy" class="w-full h-full object-cover" />
@@ -314,7 +340,8 @@
         <span class="text-[11px] tracking-[0.35em] text-brand-green uppercase reveal">03</span>
         <h3 class="font-display text-[clamp(2.6rem,6vw,5.5rem)] text-brand-white mt-3 mb-5 reveal reveal-d1">Rehab Built<br/>Around Performance.</h3>
         <div class="h-px w-16 bg-brand-green mb-5 reveal reveal-d2" style="transform-origin:left"></div>
-        <p class="text-brand-gray text-base leading-relaxed max-w-md reveal reveal-d3">Recovery doesn't end when pain stops. We rebuild movement, restore strength, and prepare your body to perform — not just survive.</p>
+        <p class="text-brand-gray text-base leading-relaxed max-w-md reveal reveal-d3">Pain going away isn&rsquo;t the finish line. It&rsquo;s the starting point.</p>
+        <p class="text-brand-gray text-base leading-relaxed max-w-md reveal reveal-d3" style="margin-top:1rem;">We keep working until you&rsquo;re moving well, loading properly, and ready to get back to your sport without second-guessing your body.</p>
       </div>
       <div class="relative aspect-[4/5] img-zoom reveal reveal-d1">
         <img src="therapy/therapy 3.jpg" alt="Performance rehab" class="w-full h-full object-cover" />
@@ -338,6 +365,107 @@
       </span>
     </div>
   </div>
+</section>
+
+<!-- ═══════════════════════════════════════ EQUIPMENT & MODALITIES -->
+<section id="equipment" class="bg-[#050505] border-t border-white/5">
+
+  <!-- Parallax header: facility photo -->
+  <div class="relative overflow-hidden" style="height:clamp(320px,52vh,580px);">
+    <div id="equip-parallax-bg"></div>
+    <div class="absolute inset-0" style="background:linear-gradient(to bottom,rgba(5,5,5,0.62) 0%,rgba(5,5,5,0.38) 40%,rgba(5,5,5,0.9) 100%);"></div>
+    <div class="absolute inset-x-0 bottom-0 pb-14 px-5 md:px-12 lg:px-20">
+      <div class="max-w-[1400px] mx-auto">
+        <p class="text-[11px] tracking-[0.4em] text-brand-green uppercase mb-4 reveal">Equipment &amp; Modalities</p>
+        <h2 class="font-display text-[clamp(2.4rem,5.5vw,5rem)] text-brand-white leading-[0.9] reveal reveal-d1">The Right Tool.<br/><span class="text-brand-green">The Right Stage.</span></h2>
+      </div>
+    </div>
+  </div>
+
+  <!-- Intro -->
+  <div class="px-5 md:px-12 lg:px-20 py-12 border-b border-white/5">
+    <div class="max-w-[1400px] mx-auto">
+      <p class="text-brand-gray text-base leading-relaxed max-w-xl reveal">We use equipment when it adds value &mdash; not as a default, and not instead of proper assessment. Each modality below serves a specific role at a specific stage. What we use depends on the injury, the tissue, and where you are in recovery.</p>
+    </div>
+  </div>
+
+  <!-- Featured: Musculoskeletal Ultrasound -->
+  <div class="border-b border-white/5">
+    <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row">
+      <!-- Text -->
+      <div class="flex-1 px-5 md:px-0 md:pl-12 lg:pl-20 py-10 md:py-16" style="border-right:1px solid rgba(255,255,255,0.06);">
+        <div class="equip-card-tag">
+          <span class="text-[10px] tracking-[0.3em] text-brand-green uppercase">01</span>
+        </div>
+        <h3 class="font-display text-[clamp(2.2rem,4.2vw,3.8rem)] text-brand-white mb-5 reveal reveal-d1">Musculoskeletal<br/>Ultrasound</h3>
+        <div class="h-px w-12 bg-brand-green mb-6 reveal reveal-d2" style="transform-origin:left;transform:scaleX(0);transition:transform 0.7s 0.25s cubic-bezier(0.76,0,0.24,1),opacity 0.7s;"></div>
+        <p class="text-brand-gray text-sm leading-relaxed max-w-sm reveal reveal-d2">We use musculoskeletal ultrasound to see what we can&rsquo;t assess by hand alone &mdash; tendon integrity, joint fluid levels, soft tissue changes.</p>
+        <p class="text-brand-gray text-sm leading-relaxed max-w-sm reveal reveal-d3" style="margin-top:1rem;">Most clinics send you to a radiologist and wait for a report. We use it in session, immediately, as part of how we diagnose and treat.</p>
+        <p class="text-[10px] tracking-[0.25em] text-brand-green uppercase mt-6 reveal reveal-d4">Tendon pathology &nbsp;&middot;&nbsp; Joint assessment</p>
+      </div>
+      <!-- Image -->
+      <div class="relative img-zoom overflow-hidden md:w-[45%]" style="min-height:280px;">
+        <img src="pdf-images/image_121.jpg" alt="Ultrasound-guided treatment in session" style="width:100%;height:100%;object-fit:cover;object-position:center 40%;filter:brightness(0.8) saturate(0.85);" />
+        <div class="absolute inset-0" style="background:linear-gradient(to right,rgba(5,5,5,0.35) 0%,transparent 35%),linear-gradient(to top,rgba(5,5,5,0.25) 0%,transparent 40%);pointer-events:none;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Equipment grid: 2 columns -->
+  <div class="px-5 md:px-12 lg:px-20">
+    <div class="max-w-[1400px] mx-auto">
+      <div class="grid md:grid-cols-2 gap-px" style="background:rgba(255,255,255,0.06);">
+
+        <!-- 02 Electromagnetic Therapy -->
+        <div class="equip-card" style="background:#050505;">
+          <span class="text-[10px] tracking-[0.35em] text-brand-green uppercase">02</span>
+          <h3 class="font-display text-[clamp(1.8rem,3vw,3rem)] text-brand-white mt-3 mb-4 reveal reveal-d1">Electromagnetic<br/>Therapy</h3>
+          <p class="text-brand-gray text-sm leading-relaxed max-w-sm reveal reveal-d2">Bone stress injuries, chronic tendon pathology, tissue that isn&rsquo;t responding to active treatment alone. EM fields support cellular repair in structures with limited blood supply. Used at the right stage of healing &mdash; not as a first-line shortcut.</p>
+          <p class="text-[10px] tracking-[0.25em] text-brand-green uppercase mt-5 reveal reveal-d3">Bone stress &nbsp;&middot;&nbsp; Chronic tendon &nbsp;&middot;&nbsp; Wound healing</p>
+        </div>
+
+        <!-- 03 EMS / Compex -->
+        <div class="equip-card" style="background:#050505;">
+          <span class="text-[10px] tracking-[0.35em] text-brand-green uppercase">03</span>
+          <h3 class="font-display text-[clamp(1.8rem,3vw,3rem)] text-brand-white mt-3 mb-4 reveal reveal-d1">Electrical Muscle<br/>Stimulation</h3>
+          <p class="text-brand-gray text-sm leading-relaxed max-w-sm reveal reveal-d2">We use the Compex SP 8.0 &mdash; a professional-grade EMS device built for performance athletes. It reactivates inhibited muscles post-injury, rebuilds proper recruitment patterns, and accelerates recovery during high-load training weeks. Specific to complex cases and athletes with significant inhibition.</p>
+          <p class="text-[10px] tracking-[0.25em] text-brand-green uppercase mt-5 reveal reveal-d3">Muscle inhibition &nbsp;&middot;&nbsp; Post-op reactivation &nbsp;&middot;&nbsp; In-season recovery</p>
+        </div>
+
+        <!-- 04 Dynamometer -->
+        <div class="equip-card" style="background:#050505;">
+          <span class="text-[10px] tracking-[0.35em] text-brand-green uppercase">04</span>
+          <h3 class="font-display text-[clamp(1.8rem,3vw,3rem)] text-brand-white mt-3 mb-4 reveal reveal-d1">Objective Strength<br/>Testing</h3>
+          <p class="text-brand-gray text-sm leading-relaxed max-w-sm reveal reveal-d2">We use a dynamometer to measure actual muscle output &mdash; not feel, not estimated time. Limb symmetry index, peak force, fatigue ratios. When you ask whether you&rsquo;re ready to return to sport, this is how we answer with a number instead of a guess.</p>
+          <p class="text-[10px] tracking-[0.25em] text-brand-green uppercase mt-5 reveal reveal-d3">Return-to-sport clearance &nbsp;&middot;&nbsp; Progress tracking &nbsp;&middot;&nbsp; Load benchmarking</p>
+        </div>
+
+        <!-- 05 Dry Needling -->
+        <div class="equip-card" style="background:#050505;">
+          <span class="text-[10px] tracking-[0.35em] text-brand-green uppercase">05</span>
+          <h3 class="font-display text-[clamp(1.8rem,3vw,3rem)] text-brand-white mt-3 mb-4 reveal reveal-d1">Dry Needling</h3>
+          <p class="text-brand-gray text-sm leading-relaxed max-w-sm reveal reveal-d2">Intramuscular needling to deactivate trigger points and restore normal muscle length in groups where manual release hasn&rsquo;t been enough. Ultrasound guidance applied where depth or accuracy matters. Part of a treatment session &mdash; not a standalone appointment.</p>
+          <p class="text-[10px] tracking-[0.25em] text-brand-green uppercase mt-5 reveal reveal-d3">Trigger points &nbsp;&middot;&nbsp; Deep tissue &nbsp;&middot;&nbsp; Guided precision</p>
+        </div>
+
+        <!-- 06 Sports Massage & Cupping — full width -->
+        <div class="equip-card md:col-span-2" style="background:#050505;">
+          <div class="flex flex-col md:flex-row md:gap-16">
+            <div style="flex:0 0 auto;max-width:340px;">
+              <span class="text-[10px] tracking-[0.35em] text-brand-green uppercase">06</span>
+              <h3 class="font-display text-[clamp(1.8rem,3vw,3rem)] text-brand-white mt-3 mb-4 reveal reveal-d1">Sports Massage<br/>&amp; Cupping</h3>
+            </div>
+            <div style="flex:1;padding-top:0.35rem;">
+              <p class="text-brand-gray text-sm leading-relaxed reveal reveal-d2" style="max-width:480px;">Load management for in-season athletes. Deep tissue work to reduce soreness, restore tissue mobility, and keep training volume sustainable. Cupping for surface tissue and fascial restrictions. Scheduled as part of a structured recovery plan &mdash; not booked as a standalone feel-good session.</p>
+              <p class="text-[10px] tracking-[0.25em] text-brand-green uppercase mt-5 reveal reveal-d3">In-season recovery &nbsp;&middot;&nbsp; Tissue mobility &nbsp;&middot;&nbsp; High-load management</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 </section>
 
 <!-- ═══════════════════════════════════════ TEAM -->
@@ -367,7 +495,7 @@
           <p class="text-[10px] tracking-[0.3em] text-brand-green uppercase mb-1.5">Sports Medicine &amp; Clinical Assessment</p>
           <h3 class="font-display text-[clamp(1.3rem,2.5vw,1.9rem)] text-brand-white leading-tight mb-1">Dr. Mohamed Magdi Kandeel</h3>
           <p class="text-brand-gray text-[11px] tracking-[0.15em] uppercase mb-2">Co-Founder · Head of Medical</p>
-          <p class="text-brand-gray text-xs leading-relaxed">Precision diagnostics and a patient-first standard — Dr. Magdi leads the clinical vision at INSPIRE.</p>
+          <p class="text-brand-gray text-xs leading-relaxed">Dr. Magdi leads the clinical and diagnostic side of Inspire. His background in sports medicine means the first session is genuinely thorough — the kind that actually figures out what&rsquo;s wrong.</p>
         </div>
       </div>
 
@@ -381,21 +509,21 @@
           <p class="text-[10px] tracking-[0.3em] text-brand-green uppercase mb-1.5">Advanced Physiotherapy &amp; Athletic Rehab</p>
           <h3 class="font-display text-[clamp(1.3rem,2.5vw,1.9rem)] text-brand-white leading-tight mb-1">Dr. Yassine Rady</h3>
           <p class="text-brand-gray text-[11px] tracking-[0.15em] uppercase mb-2">Co-Founder · Head Physiotherapist</p>
-          <p class="text-brand-gray text-xs leading-relaxed">Movement science and measurable outcomes — Dr. Yassine drives the rehab standard for athletes and active patients.</p>
+          <p class="text-brand-gray text-xs leading-relaxed">Dr. Yassine built his career working with athletes. He sets the rehab standard at Inspire — focused on return to sport, not just symptom management.</p>
         </div>
       </div>
 
       <!-- Dr. Ahmed -->
       <div class="group relative overflow-hidden img-zoom reveal reveal-d2">
         <div class="relative" style="aspect-ratio:3/4;">
-          <img src="team/compressed/Dr ahmed-2.png" alt="Dr. Ahmed" class="w-full h-full object-cover object-top" />
+          <img src="team/compressed/dr-ahmed.jpg" alt="Dr. Ahmed" class="w-full h-full object-cover object-top" />
           <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent"></div>
         </div>
         <div class="absolute bottom-0 left-0 right-0 p-5 md:p-6">
           <p class="text-[10px] tracking-[0.3em] text-brand-green uppercase mb-1.5">Manual Therapy &amp; Hands-On Treatment</p>
           <h3 class="font-display text-[clamp(1.3rem,2.5vw,1.9rem)] text-brand-white leading-tight mb-1">Dr. Ahmed</h3>
           <p class="text-brand-gray text-[11px] tracking-[0.15em] uppercase mb-2">Co-Founder · Head of Manual Therapy</p>
-          <p class="text-brand-gray text-xs leading-relaxed">Specialist in hands-on manual therapy — restoring function and reducing pain with clinical precision.</p>
+          <p class="text-brand-gray text-xs leading-relaxed">Dr. Ahmed&rsquo;s work is hands-on from the first session. Joint mobilisation, soft tissue, restoring movement directly &mdash; not machines, not passive treatment.</p>
         </div>
       </div>
     </div>
@@ -411,6 +539,7 @@
           </div>
           <p class="text-brand-white text-sm font-medium">Nada Sabry</p>
           <p class="text-brand-gray text-[11px] tracking-[0.15em] uppercase mt-1">Physiotherapist</p>
+          <p class="text-brand-gray text-[11px] leading-relaxed mt-2">Five years of clinical practice in sports injury. MSc candidate and clinical instructor at AIMS postgraduate academy.</p>
         </div>
         <!-- Nada Karam -->
         <div class="reveal reveal-d1">
@@ -419,6 +548,7 @@
           </div>
           <p class="text-brand-white text-sm font-medium">Nada Karam</p>
           <p class="text-brand-gray text-[11px] tracking-[0.15em] uppercase mt-1">Physiotherapist</p>
+          <p class="text-brand-gray text-[11px] leading-relaxed mt-2">Two years of clinical practice. Certified manual therapist, focused on sports injury recovery.</p>
         </div>
         <!-- Nada Samy -->
         <div class="reveal reveal-d2">
@@ -427,22 +557,25 @@
           </div>
           <p class="text-brand-white text-sm font-medium">Nada Samy</p>
           <p class="text-brand-gray text-[11px] tracking-[0.15em] uppercase mt-1">Physiotherapist</p>
+          <p class="text-brand-gray text-[11px] leading-relaxed mt-2">Two years of clinical practice. Certified manual therapist.</p>
         </div>
         <!-- Yousef -->
         <div class="reveal reveal-d3">
-          <div class="aspect-square overflow-hidden bg-[#111] mb-3 flex items-center justify-center">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <div class="aspect-square img-zoom overflow-hidden bg-[#111] mb-3">
+            <img src="team/compressed/youssef-karim.jpg" alt="Youssef Karim" class="w-full h-full object-cover object-top" />
           </div>
-          <p class="text-brand-white text-sm font-medium">Yousef Karim</p>
+          <p class="text-brand-white text-sm font-medium">Youssef Karim</p>
           <p class="text-brand-gray text-[11px] tracking-[0.15em] uppercase mt-1">Rehabilitation Specialist</p>
+          <p class="text-brand-gray text-[11px] leading-relaxed mt-2">Certified manual therapist. Return-to-sport programming and load management.</p>
         </div>
         <!-- Mohsen -->
         <div class="reveal reveal-d4">
-          <div class="aspect-square overflow-hidden bg-[#111] mb-3 flex items-center justify-center">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <div class="aspect-square img-zoom overflow-hidden bg-[#111] mb-3">
+            <img src="team/compressed/mohsen-hosni.jpg" alt="Mohsen Hosni" class="w-full h-full object-cover object-top" />
           </div>
-          <p class="text-brand-white text-sm font-medium">Mohsen</p>
+          <p class="text-brand-white text-sm font-medium">Mohsen Hosni</p>
           <p class="text-brand-gray text-[11px] tracking-[0.15em] uppercase mt-1">Sports Therapist</p>
+          <p class="text-brand-gray text-[11px] leading-relaxed mt-2">Sports therapy across injury recovery and performance rehab.</p>
         </div>
       </div>
     </div>
@@ -488,19 +621,53 @@
       <div class="review-card" style="flex-shrink:0;width:82vw;max-width:320px;scroll-snap-align:start;">&#8220;Best sports rehab in Cairo. The energy is clinical but motivating — you feel like you&#8217;re training, not just recovering.&#8221;<div class="review-footer"><div><b>Karim R.</b><span>Sports Injury</span></div></div></div>
       <div class="review-card" style="flex-shrink:0;width:82vw;max-width:320px;scroll-snap-align:start;">&#8220;Dr. Yassine mapped out every step of my recovery. Went from chronic knee pain to running 10K in 8 weeks.&#8221;<div class="review-footer"><div><b>Ahmed K.</b><span>Chronic Knee Pain</span></div></div></div>
       <div class="review-card" style="flex-shrink:0;width:82vw;max-width:320px;scroll-snap-align:start;">&#8220;They don&#8217;t just treat the injury — they train you to move better permanently. That&#8217;s the real difference.&#8221;<div class="review-footer"><div><b>Nour A.</b><span>Movement Rehabilitation</span></div></div></div>
+      <div class="review-card" style="flex-shrink:0;width:82vw;max-width:320px;scroll-snap-align:start;">&#8220;Transparent doctors who push you hard enough to recover fast — but never beyond what&#8217;s safe.&#8221;<div class="review-footer"><div><b>Bassant R.</b><span>General Rehab</span></div></div></div>
+      <div class="review-card" style="flex-shrink:0;width:82vw;max-width:320px;scroll-snap-align:start;">&#8220;Great support from Dr. Nada. High focus given to each athlete every session.&#8221;<div class="review-footer"><div><b>Nabila A.</b><span>Athletic Rehab</span></div></div></div>
+      <div class="review-card" style="flex-shrink:0;width:82vw;max-width:320px;scroll-snap-align:start;">&#8220;Long, properly done assessment first. Sessions built around the actual diagnosis — manual therapy, rehab, or both. This is how it should work.&#8221;<div class="review-footer"><div><b>Jana R.</b><span>Sports Rehab</span></div></div></div>
+      <div class="review-card" style="flex-shrink:0;width:82vw;max-width:320px;scroll-snap-align:start;">&#8220;I come in feeling bad and always leave feeling better. Dr. Nada made the difference through my neck disc rehab.&#8221;<div class="review-footer"><div><b>Maya N.</b><span>Cervical Rehab</span></div></div></div>
+      <div class="review-card" style="flex-shrink:0;width:82vw;max-width:320px;scroll-snap-align:start;">&#8220;Every doctor explains what&#8217;s happening and why. You leave each session knowing what was done and what&#8217;s next.&#8221;<div class="review-footer"><div><b>Aly M.</b><span>Rehabilitation</span></div></div></div>
+      <div class="review-card" style="flex-shrink:0;width:82vw;max-width:320px;scroll-snap-align:start;">&#8220;Dr. Nour kept me going through the harder sessions. Real support, not just clinical.&#8221;<div class="review-footer"><div><b>Alaa A.</b><span>Recovery</span></div></div></div>
+      <div class="review-card" style="flex-shrink:0;width:82vw;max-width:320px;scroll-snap-align:start;">&#8220;One of the best physio clinics in Cairo. Well-organised team — special thanks to Dr. Magdi and Dr. Youssef.&#8221;<div class="review-footer"><div><b>Ahmed N.</b><span>Sports Injury</span></div></div></div>
+      <div class="review-card" style="flex-shrink:0;width:82vw;max-width:320px;scroll-snap-align:start;">&#8220;The best physiotherapists I&#8217;ve worked with in years of dealing with this injury. Thank you.&#8221;<div class="review-footer"><div><b>Mohamed M.</b><span>Chronic Injury</span></div></div></div>
     </div>
   </div>
 
-  <!-- Row 1 (desktop marquee) -->
+  <!-- Row 1 (desktop marquee) — NEW Google reviews only -->
   <div class="mb-4 overflow-hidden hidden md:block">
     <div class="flex marquee-inner">
+      <div class="flex flex-shrink-0">
+        <div class="review-card">&#8220;Transparent doctors who push you hard enough to recover fast — but never beyond what&#8217;s safe.&#8221;<div class="review-footer"><div><b>Bassant R.</b><span>General Rehab</span></div></div></div>
+        <div class="review-card">&#8220;Great support from Dr. Nada. High focus given to each athlete every session.&#8221;<div class="review-footer"><div><b>Nabila A.</b><span>Athletic Rehab</span></div></div></div>
+        <div class="review-card">&#8220;Long, properly done assessment first. Sessions built around the actual diagnosis — manual therapy, rehab, or both. This is how it should work.&#8221;<div class="review-footer"><div><b>Jana R.</b><span>Sports Rehab</span></div></div></div>
+        <div class="review-card">&#8220;I come in feeling bad and always leave feeling better. Dr. Nada made the difference through my neck disc rehab.&#8221;<div class="review-footer"><div><b>Maya N.</b><span>Cervical Rehab</span></div></div></div>
+        <div class="review-card">&#8220;Every doctor explains what&#8217;s happening and why. You leave each session knowing what was done and what&#8217;s next.&#8221;<div class="review-footer"><div><b>Aly M.</b><span>Rehabilitation</span></div></div></div>
+        <div class="review-card">&#8220;Dr. Nour kept me going through the harder sessions. Real support, not just clinical.&#8221;<div class="review-footer"><div><b>Alaa A.</b><span>Recovery</span></div></div></div>
+        <div class="review-card">&#8220;One of the best physio clinics in Cairo. Well-organised team — special thanks to Dr. Magdi and Dr. Youssef.&#8221;<div class="review-footer"><div><b>Ahmed N.</b><span>Sports Injury</span></div></div></div>
+        <div class="review-card">&#8220;The best physiotherapists I&#8217;ve worked with in years of dealing with this injury. Thank you.&#8221;<div class="review-footer"><div><b>Mohamed M.</b><span>Chronic Injury</span></div></div></div>
+      </div>
+      <div class="flex flex-shrink-0" aria-hidden="true">
+        <div class="review-card">&#8220;Transparent doctors who push you hard enough to recover fast — but never beyond what&#8217;s safe.&#8221;<div class="review-footer"><div><b>Bassant R.</b><span>General Rehab</span></div></div></div>
+        <div class="review-card">&#8220;Great support from Dr. Nada. High focus given to each athlete every session.&#8221;<div class="review-footer"><div><b>Nabila A.</b><span>Athletic Rehab</span></div></div></div>
+        <div class="review-card">&#8220;Long, properly done assessment first. Sessions built around the actual diagnosis — manual therapy, rehab, or both. This is how it should work.&#8221;<div class="review-footer"><div><b>Jana R.</b><span>Sports Rehab</span></div></div></div>
+        <div class="review-card">&#8220;I come in feeling bad and always leave feeling better. Dr. Nada made the difference through my neck disc rehab.&#8221;<div class="review-footer"><div><b>Maya N.</b><span>Cervical Rehab</span></div></div></div>
+        <div class="review-card">&#8220;Every doctor explains what&#8217;s happening and why. You leave each session knowing what was done and what&#8217;s next.&#8221;<div class="review-footer"><div><b>Aly M.</b><span>Rehabilitation</span></div></div></div>
+        <div class="review-card">&#8220;Dr. Nour kept me going through the harder sessions. Real support, not just clinical.&#8221;<div class="review-footer"><div><b>Alaa A.</b><span>Recovery</span></div></div></div>
+        <div class="review-card">&#8220;One of the best physio clinics in Cairo. Well-organised team — special thanks to Dr. Magdi and Dr. Youssef.&#8221;<div class="review-footer"><div><b>Ahmed N.</b><span>Sports Injury</span></div></div></div>
+        <div class="review-card">&#8220;The best physiotherapists I&#8217;ve worked with in years of dealing with this injury. Thank you.&#8221;<div class="review-footer"><div><b>Mohamed M.</b><span>Chronic Injury</span></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2 reverse (desktop only) — original reviews only, zero overlap with Row 1 -->
+  <div class="overflow-hidden hidden md:block">
+    <div class="flex marquee-inner-rev">
       <div class="flex flex-shrink-0">
         <div class="review-card">&#8220;Dr. Magdi&#8217;s assessment was incredibly thorough. Within a week I understood my injury better than I had in two years.&#8221;<div class="review-footer"><div><b>Dina S.</b><span>Knee Rehabilitation</span></div></div></div>
         <div class="review-card">&#8220;The transparency here is unlike any clinic I&#8217;ve visited. They explain every decision — no guesswork, no passive waiting.&#8221;<div class="review-footer"><div><b>Sara M.</b><span>Post-Surgical Recovery</span></div></div></div>
         <div class="review-card">&#8220;Three months post-surgery and I&#8217;m back training at full capacity. Their rehab protocol is genuinely elite level.&#8221;<div class="review-footer"><div><b>Layla T.</b><span>Athletic Rehabilitation</span></div></div></div>
         <div class="review-card">&#8220;As a competitive runner, this team gets it. They think in performance terms — not just &#8216;pain gone = done&#8217;. That makes all the difference.&#8221;<div class="review-footer"><div><b>Youssef H.</b><span>Running Performance</span></div></div></div>
         <div class="review-card">&#8220;After two failed attempts at physio elsewhere, INSPIRE actually fixed my shoulder. Manual therapy with real hands-on attention.&#8221;<div class="review-footer"><div><b>Omar F.</b><span>Shoulder Injury</span></div></div></div>
-        <div class="review-card">&#8220;Best sports rehab in Cairo. The energy is clinical but motivating — you feel like you&#8217;re training, not just recovering.&#8221;<div class="review-footer"><div><b>Karim R.</b><span>Sports Injury</span></div></div></div>
+        <div class="review-card">&#8220;Best sports rehab in Cairo by far. The energy here is different — clinical but motivating.&#8221;<div class="review-footer"><div><b>Karim R.</b><span>Sports Injury</span></div></div></div>
         <div class="review-card">&#8220;They don&#8217;t just treat the injury — they train you to move better permanently. That&#8217;s the real difference.&#8221;<div class="review-footer"><div><b>Nour A.</b><span>Movement Rehabilitation</span></div></div></div>
         <div class="review-card">&#8220;Dr. Yassine mapped out every step of my recovery. Went from chronic knee pain to running 10K in 8 weeks.&#8221;<div class="review-footer"><div><b>Ahmed K.</b><span>Chronic Knee Pain</span></div></div></div>
       </div>
@@ -509,36 +676,10 @@
         <div class="review-card">&#8220;The transparency here is unlike any clinic I&#8217;ve visited. They explain every decision — no guesswork, no passive waiting.&#8221;<div class="review-footer"><div><b>Sara M.</b><span>Post-Surgical Recovery</span></div></div></div>
         <div class="review-card">&#8220;Three months post-surgery and I&#8217;m back training at full capacity. Their rehab protocol is genuinely elite level.&#8221;<div class="review-footer"><div><b>Layla T.</b><span>Athletic Rehabilitation</span></div></div></div>
         <div class="review-card">&#8220;As a competitive runner, this team gets it. They think in performance terms — not just &#8216;pain gone = done&#8217;.&#8221;<div class="review-footer"><div><b>Youssef H.</b><span>Running Performance</span></div></div></div>
-        <div class="review-card">&#8220;After two failed attempts at physio elsewhere, INSPIRE actually fixed my shoulder.&#8221;<div class="review-footer"><div><b>Omar F.</b><span>Shoulder Injury</span></div></div></div>
-        <div class="review-card">&#8220;Best sports rehab in Cairo. The energy is clinical but motivating.&#8221;<div class="review-footer"><div><b>Karim R.</b><span>Sports Injury</span></div></div></div>
-        <div class="review-card">&#8220;They don&#8217;t just treat the injury — they train you to move better permanently.&#8221;<div class="review-footer"><div><b>Nour A.</b><span>Movement Rehabilitation</span></div></div></div>
-        <div class="review-card">&#8220;Dr. Yassine mapped out every step of my recovery. Went from chronic pain to running 10K in 8 weeks.&#8221;<div class="review-footer"><div><b>Ahmed K.</b><span>Chronic Knee Pain</span></div></div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Row 2 reverse (desktop only) -->
-  <div class="overflow-hidden hidden md:block">
-    <div class="flex marquee-inner-rev">
-      <div class="flex flex-shrink-0">
-        <div class="review-card">&#8220;Dr. Yassine mapped out every step. Went from chronic pain to running 10K in 8 weeks.&#8221;<div class="review-footer"><div><b>Ahmed K.</b><span>Chronic Knee Pain</span></div></div></div>
-        <div class="review-card">&#8220;They train you to move better, not just treat the injury. That&#8217;s the real difference from everywhere else.&#8221;<div class="review-footer"><div><b>Nour A.</b><span>Movement Rehab</span></div></div></div>
+        <div class="review-card">&#8220;After two failed attempts at physio elsewhere, INSPIRE actually fixed my shoulder. Manual therapy with real hands-on attention.&#8221;<div class="review-footer"><div><b>Omar F.</b><span>Shoulder Injury</span></div></div></div>
         <div class="review-card">&#8220;Best sports rehab in Cairo by far. The energy here is different — clinical but motivating.&#8221;<div class="review-footer"><div><b>Karim R.</b><span>Sports Injury</span></div></div></div>
-        <div class="review-card">&#8220;After two failed physio attempts elsewhere, INSPIRE actually fixed my shoulder with real hands-on attention.&#8221;<div class="review-footer"><div><b>Omar F.</b><span>Shoulder Injury</span></div></div></div>
-        <div class="review-card">&#8220;As a competitive runner, this team gets it. They think in performance terms, not just recovery.&#8221;<div class="review-footer"><div><b>Youssef H.</b><span>Running Performance</span></div></div></div>
-        <div class="review-card">&#8220;Three months post-surgery and back training at full capacity. Their rehab protocol is elite level.&#8221;<div class="review-footer"><div><b>Layla T.</b><span>Athletic Rehab</span></div></div></div>
-        <div class="review-card">&#8220;The transparency here is unlike any clinic. They explain every decision — no guesswork.&#8221;<div class="review-footer"><div><b>Sara M.</b><span>Post-Surgical Recovery</span></div></div></div>
-        <div class="review-card">&#8220;Dr. Magdi&#8217;s assessment was incredibly thorough. I understood my injury better within a week.&#8221;<div class="review-footer"><div><b>Dina S.</b><span>Knee Rehabilitation</span></div></div></div>
-      </div>
-      <div class="flex flex-shrink-0" aria-hidden="true">
-        <div class="review-card">&#8220;Dr. Yassine mapped out every step. Went from chronic pain to running 10K in 8 weeks.&#8221;<div class="review-footer"><div><b>Ahmed K.</b><span>Chronic Knee Pain</span></div></div></div>
-        <div class="review-card">&#8220;They train you to move better, not just treat the injury. That&#8217;s the real difference.&#8221;<div class="review-footer"><div><b>Nour A.</b><span>Movement Rehab</span></div></div></div>
-        <div class="review-card">&#8220;Best sports rehab in Cairo by far. Clinical but motivating.&#8221;<div class="review-footer"><div><b>Karim R.</b><span>Sports Injury</span></div></div></div>
-        <div class="review-card">&#8220;After two failed attempts elsewhere, INSPIRE actually fixed my shoulder.&#8221;<div class="review-footer"><div><b>Omar F.</b><span>Shoulder Injury</span></div></div></div>
-        <div class="review-card">&#8220;This team thinks in performance terms, not just recovery.&#8221;<div class="review-footer"><div><b>Youssef H.</b><span>Running Performance</span></div></div></div>
-        <div class="review-card">&#8220;Three months post-surgery and back training at full capacity.&#8221;<div class="review-footer"><div><b>Layla T.</b><span>Athletic Rehab</span></div></div></div>
-        <div class="review-card">&#8220;The transparency here is unlike any clinic I&#8217;ve visited.&#8221;<div class="review-footer"><div><b>Sara M.</b><span>Post-Surgical Recovery</span></div></div></div>
-        <div class="review-card">&#8220;Dr. Magdi&#8217;s assessment was incredibly thorough — understood my injury better within a week.&#8221;<div class="review-footer"><div><b>Dina S.</b><span>Knee Rehabilitation</span></div></div></div>
+        <div class="review-card">&#8220;They don&#8217;t just treat the injury — they train you to move better permanently. That&#8217;s the real difference.&#8221;<div class="review-footer"><div><b>Nour A.</b><span>Movement Rehabilitation</span></div></div></div>
+        <div class="review-card">&#8220;Dr. Yassine mapped out every step of my recovery. Went from chronic knee pain to running 10K in 8 weeks.&#8221;<div class="review-footer"><div><b>Ahmed K.</b><span>Chronic Knee Pain</span></div></div></div>
       </div>
     </div>
   </div>
@@ -603,7 +744,7 @@
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#27C93F" stroke-width="2" class="mt-0.5 flex-shrink-0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                   <div>
                     <div class="text-brand-white text-sm font-medium">Heliopolis</div>
-                    <div class="text-brand-gray text-xs mt-1">Heliopolis, Cairo</div>
+                    <div class="text-brand-gray text-xs mt-1">Ismailia Square, 25 Othman Ibn Affan</div>
                   </div>
                 </div>
               </button>
@@ -612,7 +753,7 @@
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#27C93F" stroke-width="2" class="mt-0.5 flex-shrink-0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                   <div>
                     <div class="text-brand-white text-sm font-medium">Cairo Stadium</div>
-                    <div class="text-brand-gray text-xs mt-1">Nasr City, Cairo</div>
+                    <div class="text-brand-gray text-xs mt-1">Inside Cairo International Stadium</div>
                   </div>
                 </div>
               </button>
@@ -677,16 +818,16 @@
           <img src="therapy/therapy 4.jpg" alt="" class="w-full h-full object-cover" style="filter:brightness(0.6) saturate(0.5);" />
           <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(5,5,5,0.85) 0%,transparent 60%);"></div>
           <div class="absolute bottom-0 left-0 p-5">
-            <p style="font-size:10px;letter-spacing:0.35em;color:#27C93F;text-transform:uppercase;margin-bottom:6px;">Expert care</p>
-            <p class="text-brand-white text-sm font-medium leading-tight">Hands-on therapy.<br/>Intelligent recovery.</p>
+            <p style="font-size:10px;letter-spacing:0.35em;color:#27C93F;text-transform:uppercase;margin-bottom:6px;">Manual therapy</p>
+            <p class="text-brand-white text-sm font-medium leading-tight">Hands-on. Every session.</p>
           </div>
         </div>
 
         <div class="p-5" style="border:1px solid rgba(255,255,255,0.08);background:rgba(8,8,8,0.85);backdrop-filter:blur(8px);">
           <p class="text-[10px] tracking-[0.35em] text-brand-green uppercase mb-3">What to Expect</p>
           <ul class="space-y-2.5">
-            <li class="flex items-start gap-3 text-sm text-brand-gray"><span style="margin-top:7px;width:4px;height:4px;border-radius:50%;background:#27C93F;flex-shrink:0;display:inline-block;"></span>Comprehensive movement assessment</li>
-            <li class="flex items-start gap-3 text-sm text-brand-gray"><span style="margin-top:7px;width:4px;height:4px;border-radius:50%;background:#27C93F;flex-shrink:0;display:inline-block;"></span>Transparent treatment plan</li>
+            <li class="flex items-start gap-3 text-sm text-brand-gray"><span style="margin-top:7px;width:4px;height:4px;border-radius:50%;background:#27C93F;flex-shrink:0;display:inline-block;"></span>Full movement assessment, every first visit</li>
+            <li class="flex items-start gap-3 text-sm text-brand-gray"><span style="margin-top:7px;width:4px;height:4px;border-radius:50%;background:#27C93F;flex-shrink:0;display:inline-block;"></span>Clear plan built around what we find</li>
             <li class="flex items-start gap-3 text-sm text-brand-gray"><span style="margin-top:7px;width:4px;height:4px;border-radius:50%;background:#27C93F;flex-shrink:0;display:inline-block;"></span>Manual, hands-on therapy</li>
             <li class="flex items-start gap-3 text-sm text-brand-gray"><span style="margin-top:7px;width:4px;height:4px;border-radius:50%;background:#27C93F;flex-shrink:0;display:inline-block;"></span>Progressive rehab protocol</li>
           </ul>
@@ -725,9 +866,13 @@
             </div>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#27C93F" stroke-width="1.5" class="mt-1"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
-          <div class="flex items-center gap-2 text-brand-gray text-sm mb-6">
+          <div class="flex items-center gap-2 text-brand-gray text-sm mb-3">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:0.5;flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             Sat – Thu: 9:00 AM – 8:00 PM
+          </div>
+          <div class="flex items-start gap-2 text-brand-gray text-xs mb-6" style="line-height:1.5;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:0.5;flex-shrink:0;margin-top:2px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Ismailia Square, 25 Othman Ibn Affan, Heliopolis, Cairo Governorate
           </div>
           <a href="https://maps.app.goo.gl/rQq9p3YybFWmzVhh8" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-brand-green text-[#050505] text-[11px] font-bold tracking-[0.2em] uppercase px-5 py-3 hover:bg-brand-green-2 transition-colors">
             Get Directions
@@ -749,9 +894,13 @@
             </div>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#27C93F" stroke-width="1.5" class="mt-1"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
-          <div class="flex items-center gap-2 text-brand-gray text-sm mb-6">
+          <div class="flex items-center gap-2 text-brand-gray text-sm mb-3">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:0.5;flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             Sat – Thu: 9:00 AM – 8:00 PM
+          </div>
+          <div class="flex items-start gap-2 text-brand-gray text-xs mb-6" style="line-height:1.5;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:0.5;flex-shrink:0;margin-top:2px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Inside Cairo International Stadium, Nasr City, Cairo
           </div>
           <a href="https://maps.app.goo.gl/Mn2ZKifQsuhrDgKR6" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-brand-green text-[#050505] text-[11px] font-bold tracking-[0.2em] uppercase px-5 py-3 hover:bg-brand-green-2 transition-colors">
             Get Directions
@@ -788,7 +937,7 @@
             </span>
           </button>
           <div class="faq-body overflow-hidden" style="max-height:0;transition:max-height 0.35s cubic-bezier(0.4,0,0.2,1);">
-            <p class="text-brand-gray text-sm leading-relaxed pb-5 pr-10">No referral needed. You can book directly through our website or by calling us. We'll assess your condition on arrival and design a personalised treatment plan.</p>
+            <p class="text-brand-gray text-sm leading-relaxed pb-5 pr-10">No referral needed. Book directly through our website or call us. We assess your condition on arrival and build a plan around what we find.</p>
           </div>
         </div>
         <!-- Q2 -->
@@ -1029,6 +1178,27 @@
     const pct = window.scrollY / window.innerHeight;
     heroWrap.style.transform = `scale(1.06) translateY(${pct * 12}%)`;
   }, { passive: true });
+
+  // ── Equipment section parallax ───────────────────────────
+  (function() {
+    const bg = document.getElementById('equip-parallax-bg');
+    if (!bg) return;
+    const container = bg.parentElement;
+    let rafId = null;
+    function update() {
+      rafId = null;
+      const rect = container.getBoundingClientRect();
+      const vh = window.innerHeight;
+      if (rect.bottom < -80 || rect.top > vh + 80) return;
+      const progress = (vh - rect.top) / (vh + rect.height);
+      const offset = (progress - 0.5) * 130;
+      bg.style.transform = 'translateY(' + offset.toFixed(2) + 'px)';
+    }
+    window.addEventListener('scroll', function() {
+      if (!rafId) rafId = requestAnimationFrame(update);
+    }, { passive: true });
+    update();
+  })();
 
   // ── Booking logic ────────────────────────────────────────
   let currentStep = 0;
