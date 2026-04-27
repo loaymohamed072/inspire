@@ -1,0 +1,38 @@
+# Vercel
+.vercel
+
+# Dependencies
+node_modules/
+
+# Bulk extraction folders — not served to users
+pdf-pages/
+pdf-images-small/
+
+# Raw Gemini PNGs — compressed JPEGs are committed instead
+pdf-images-png/*.png
+
+# pdf-images: only 3 files are used on the site
+pdf-images/*
+!pdf-images/image_105.jpg
+!pdf-images/image_115.jpg
+!pdf-images/image_121.jpg
+
+# Large uncompressed originals not referenced by the website
+team/mohsen hosny.png
+team/youssef karim.jpeg
+team/compressed/Dr ahmed-2.png
+team/compressed/dr magdy.jpg
+team/compressed/dr yassen and dr magdy the founders.jpg
+
+# PDFs
+*.pdf
+
+# Image extraction utility scripts
+compress-images.mjs
+crop-headshots.mjs
+extract-pages.mjs
+extract-pages2.mjs
+replace-headshots.mjs
+
+# Separate bot project
+whatsapp-bot/
