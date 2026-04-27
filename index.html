@@ -24,6 +24,138 @@
   <meta name="twitter:description" content="Cairo's physiotherapy and sports injury clinic. Manual therapy, movement assessment, and performance rehab for athletes." />
   <meta name="twitter:image" content="therapy/therapy.jpg" />
 
+  <!-- Canonical -->
+  <link rel="canonical" href="https://inspire.vercel.app" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "MedicalClinic",
+        "@id": "https://inspire.vercel.app/#clinic",
+        "name": "INSPIRE Physiotherapy",
+        "description": "Cairo's physiotherapy and sports injury clinic. Manual therapy, movement assessment, and performance rehab for athletes. Two locations in Heliopolis and Nasr City.",
+        "url": "https://inspire.vercel.app",
+        "telephone": "+201200777828",
+        "logo": "https://inspire.vercel.app/logo/inspire%20logo%20no%20background.png",
+        "image": "https://inspire.vercel.app/therapy/therapy.jpg",
+        "medicalSpecialty": "PhysicalTherapy",
+        "currenciesAccepted": "EGP",
+        "availableService": [
+          { "@type": "MedicalTherapy", "name": "Physiotherapy Assessment" },
+          { "@type": "MedicalTherapy", "name": "Manual Therapy" },
+          { "@type": "MedicalTherapy", "name": "Sports Injury Rehabilitation" },
+          { "@type": "MedicalTherapy", "name": "Diagnostic Ultrasound" },
+          { "@type": "MedicalTherapy", "name": "Dry Needling" },
+          { "@type": "MedicalTherapy", "name": "Electromagnetic Therapy" },
+          { "@type": "MedicalTherapy", "name": "Electrical Muscle Stimulation" },
+          { "@type": "MedicalTherapy", "name": "Sports Massage and Cupping" }
+        ],
+        "location": [
+          {
+            "@type": "MedicalClinic",
+            "name": "INSPIRE Physiotherapy Heliopolis",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Heliopolis",
+              "addressRegion": "Cairo",
+              "addressCountry": "EG"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": "30.09549822621987",
+              "longitude": "31.331792588356386"
+            }
+          },
+          {
+            "@type": "MedicalClinic",
+            "name": "INSPIRE Physiotherapy Nasr City",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Nasr City",
+              "addressRegion": "Cairo",
+              "addressCountry": "EG"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": "30.06877030260157",
+              "longitude": "31.307254011096834"
+            }
+          }
+        ],
+        "sameAs": [
+          "https://www.instagram.com/inspire.physioclinic/",
+          "https://www.facebook.com/inspire.physioclinic",
+          "https://www.tiktok.com/@inspireclinic"
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Do I need a referral to book a session?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No referral needed. Book directly through our website or call us. We assess your condition on arrival and build a plan around what we find."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What conditions do you treat?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We treat a wide range of conditions including sports injuries, back and neck pain, post-surgical rehabilitation, joint problems, muscle strains, and chronic pain. Our team specialises in manual therapy and athlete rehab."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How long is a typical session?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Initial assessment sessions run 30 to 60 minutes. Follow-up treatment sessions run 45 to 60 minutes depending on your plan."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you work with professional athletes?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Our sports injury clinic serves competitive athletes across football, martial arts, tennis, swimming, and more. We also work with weekend warriors and active individuals. The same standard applies to every patient."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Where are your clinics located?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We have two locations in Cairo: our Heliopolis clinic and our Cairo Stadium branch in Nasr City. Both are fully equipped with the same clinical standard."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is manual therapy and how does it help?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Manual therapy is a hands-on clinical technique used to mobilise joints, release soft tissue restrictions, and restore natural movement patterns. It is a core part of how we treat pain and dysfunction. Fast, targeted, and evidence-based."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I book an appointment?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Fill in the booking form on this page, message us on WhatsApp, or call directly on +20 120 077 7828. We will confirm your appointment and send you everything you need before your first visit."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -212,7 +344,7 @@
 
 <!-- ═══════════════════════════════════════ LOADING SCREEN -->
 <div id="loading">
-  <img id="loading-logo" src="logo/inspire logo no background.png" alt="INSPIRE" style="width:min(48vw,240px);height:auto;object-fit:contain;" />
+  <img id="loading-logo" src="logo/inspire logo no background.png" alt="INSPIRE" fetchpriority="high" decoding="async" style="width:min(48vw,240px);height:auto;object-fit:contain;" />
   <p style="margin-top:1.25rem;font-size:10px;letter-spacing:0.4em;color:rgba(184,184,184,0.7);text-transform:uppercase;animation:fadeUp 0.6s 0.7s both">Stay Limitless</p>
   <div class="load-bar-track"><div class="load-bar-fill"></div></div>
 </div>
@@ -327,7 +459,7 @@
         <p class="text-brand-gray text-base leading-relaxed max-w-md reveal reveal-d3" style="margin-top:1rem;">Before we treat anything, we watch how you move, ask the right questions, and figure out what&rsquo;s actually going on. Not just where it hurts.</p>
       </div>
       <div class="relative aspect-[4/5] img-zoom reveal reveal-d1">
-        <img src="therapy/therapy.jpg" alt="Assessment" class="w-full h-full object-cover" />
+        <img src="therapy/therapy.jpg" alt="Assessment" class="w-full h-full object-cover" loading="lazy">
         <div class="absolute inset-0 bg-gradient-to-t from-[#050505]/35 to-transparent"></div>
       </div>
     </div>
@@ -345,7 +477,7 @@
         <p class="text-brand-gray text-base leading-relaxed max-w-md reveal reveal-d3" style="margin-top:1rem;">It takes more time and more precision, but it&rsquo;s what actually gets people better.</p>
       </div>
       <div class="relative aspect-[4/5] img-zoom md:order-1 reveal reveal-d1">
-        <img src="therapy/image of therapy 2.jpg" alt="Manual therapy" class="w-full h-full object-cover" />
+        <img src="therapy/image of therapy 2.jpg" alt="Manual therapy" class="w-full h-full object-cover" loading="lazy">
         <div class="absolute inset-0 bg-gradient-to-t from-[#050505]/35 to-transparent"></div>
       </div>
     </div>
@@ -362,7 +494,7 @@
         <p class="text-brand-gray text-base leading-relaxed max-w-md reveal reveal-d3" style="margin-top:1rem;">We keep working until you&rsquo;re moving well, loading properly, and ready to get back to your sport without second-guessing your body.</p>
       </div>
       <div class="relative aspect-[4/5] img-zoom reveal reveal-d1">
-        <img src="pdf-images-png/Gemini_Generated_Image_5w2bh5w2bh5w2bh5-clean.jpg" alt="Performance rehab" class="w-full h-full object-cover" style="object-position:center 30%;" />
+        <img src="pdf-images-png/Gemini_Generated_Image_5w2bh5w2bh5w2bh5-clean.jpg" alt="Performance rehab" class="w-full h-full object-cover" style="object-position:center 30%;" loading="lazy">
         <div class="absolute inset-0 bg-gradient-to-t from-[#050505]/35 to-transparent"></div>
       </div>
     </div>
@@ -423,7 +555,7 @@
       </div>
       <!-- Image -->
       <div class="relative img-zoom overflow-hidden md:w-[45%]" style="min-height:280px;">
-        <img src="pdf-images/image_121.jpg" alt="Ultrasound-guided treatment in session" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:brightness(0.8) saturate(0.85);" />
+        <img src="pdf-images/image_121.jpg" alt="Ultrasound-guided treatment in session" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:brightness(0.8) saturate(0.85);" loading="lazy">
         <div class="absolute inset-0" style="background:linear-gradient(to right,rgba(5,5,5,0.35) 0%,transparent 35%),linear-gradient(to top,rgba(5,5,5,0.25) 0%,transparent 40%);pointer-events:none;"></div>
       </div>
     </div>
@@ -436,7 +568,7 @@
 
         <!-- 02 Electromagnetic Therapy -->
         <div class="equip-card" style="background:#050505;position:relative;overflow:hidden;min-height:220px;">
-          <img src="pdf-images/image_115.jpg" aria-hidden="true" style="position:absolute;right:0;top:0;width:58%;height:100%;object-fit:cover;object-position:center;opacity:0.45;pointer-events:none;" />
+          <img src="pdf-images/image_115.jpg" aria-hidden="true" style="position:absolute;right:0;top:0;width:58%;height:100%;object-fit:cover;object-position:center;opacity:0.45;pointer-events:none;" loading="lazy">
           <div style="position:absolute;inset:0;background:linear-gradient(to right,#050505 28%,rgba(5,5,5,0.93) 48%,rgba(5,5,5,0.18) 100%);pointer-events:none;"></div>
           <div style="position:absolute;inset:0;background:linear-gradient(135deg,transparent 58%,rgba(39,201,63,0.06) 100%);pointer-events:none;"></div>
           <div style="position:relative;z-index:1;">
@@ -449,7 +581,7 @@
 
         <!-- 03 EMS / Compex -->
         <div class="equip-card" style="background:#050505;position:relative;overflow:hidden;min-height:220px;">
-          <img src="pdf-images-png/Gemini_Generated_Image_d9umtqd9umtqd9um%20(1).jpg" aria-hidden="true" style="position:absolute;right:0;top:0;width:58%;height:100%;object-fit:cover;object-position:center;opacity:0.5;pointer-events:none;" />
+          <img src="pdf-images-png/Gemini_Generated_Image_d9umtqd9umtqd9um%20(1).jpg" aria-hidden="true" style="position:absolute;right:0;top:0;width:58%;height:100%;object-fit:cover;object-position:center;opacity:0.5;pointer-events:none;" loading="lazy">
           <div style="position:absolute;inset:0;background:linear-gradient(to right,#050505 28%,rgba(5,5,5,0.93) 48%,rgba(5,5,5,0.18) 100%);pointer-events:none;"></div>
           <div style="position:absolute;inset:0;background:linear-gradient(135deg,transparent 58%,rgba(39,201,63,0.06) 100%);pointer-events:none;"></div>
           <div style="position:relative;z-index:1;">
@@ -462,7 +594,7 @@
 
         <!-- 04 Dynamometer -->
         <div class="equip-card" style="background:#050505;position:relative;overflow:hidden;min-height:220px;">
-          <img src="pdf-images-png/Gemini_Generated_Image_x45oh7x45oh7x45o%20(1).jpg" aria-hidden="true" style="position:absolute;right:0;top:0;width:58%;height:100%;object-fit:cover;object-position:right center;opacity:0.5;pointer-events:none;" />
+          <img src="pdf-images-png/Gemini_Generated_Image_x45oh7x45oh7x45o%20(1).jpg" aria-hidden="true" style="position:absolute;right:0;top:0;width:58%;height:100%;object-fit:cover;object-position:right center;opacity:0.5;pointer-events:none;" loading="lazy">
           <div style="position:absolute;inset:0;background:linear-gradient(to right,#050505 28%,rgba(5,5,5,0.93) 48%,rgba(5,5,5,0.18) 100%);pointer-events:none;"></div>
           <div style="position:absolute;inset:0;background:linear-gradient(135deg,transparent 58%,rgba(39,201,63,0.06) 100%);pointer-events:none;"></div>
           <div style="position:relative;z-index:1;">
@@ -475,7 +607,7 @@
 
         <!-- 05 Dry Needling -->
         <div class="equip-card" style="background:#050505;position:relative;overflow:hidden;min-height:220px;">
-          <img src="pdf-images-png/Gemini_Generated_Image_a187b8a187b8a187%20(1).jpg" aria-hidden="true" style="position:absolute;right:0;bottom:0;width:60%;height:88%;object-fit:cover;object-position:left center;opacity:0.5;pointer-events:none;" />
+          <img src="pdf-images-png/Gemini_Generated_Image_a187b8a187b8a187%20(1).jpg" aria-hidden="true" style="position:absolute;right:0;bottom:0;width:60%;height:88%;object-fit:cover;object-position:left center;opacity:0.5;pointer-events:none;" loading="lazy">
           <div style="position:absolute;inset:0;background:linear-gradient(to right,#050505 28%,rgba(5,5,5,0.93) 48%,rgba(5,5,5,0.18) 100%);pointer-events:none;"></div>
           <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,5,5,0.5) 0%,transparent 30%);pointer-events:none;"></div>
           <div style="position:absolute;inset:0;background:linear-gradient(135deg,transparent 58%,rgba(39,201,63,0.07) 100%);pointer-events:none;"></div>
@@ -489,7 +621,7 @@
 
         <!-- 06 Sports Massage & Cupping — full width -->
         <div class="equip-card md:col-span-2" style="background:#050505;position:relative;overflow:hidden;min-height:200px;">
-          <img src="pdf-images-png/Gemini_Generated_Image_jsstdijsstdijsst-clean.jpg" aria-hidden="true" style="position:absolute;right:0;top:0;width:44%;height:100%;object-fit:cover;object-position:center top;opacity:0.55;pointer-events:none;" />
+          <img src="pdf-images-png/Gemini_Generated_Image_jsstdijsstdijsst-clean.jpg" aria-hidden="true" style="position:absolute;right:0;top:0;width:44%;height:100%;object-fit:cover;object-position:center top;opacity:0.55;pointer-events:none;" loading="lazy">
           <div style="position:absolute;inset:0;background:linear-gradient(to right,#050505 38%,rgba(5,5,5,0.92) 56%,rgba(5,5,5,0.12) 100%);pointer-events:none;"></div>
           <div style="position:absolute;inset:0;background:linear-gradient(135deg,transparent 52%,rgba(39,201,63,0.07) 100%);pointer-events:none;"></div>
           <div class="flex flex-col md:flex-row md:gap-16" style="position:relative;z-index:1;">
@@ -530,12 +662,12 @@
       <!-- Dr. Magdi -->
       <div class="group relative overflow-hidden img-zoom reveal">
         <div class="relative" style="aspect-ratio:3/5;">
-          <img src="team/compressed/magdy-1.jpg" alt="Dr. Mohamed Magdy Kandil" class="w-full h-full object-cover object-top" />
+          <img src="team/compressed/magdy-1.jpg" alt="Dr. Mohamed Magdy Kandeil" class="w-full h-full object-cover object-top" loading="lazy">
           <div class="absolute inset-0" style="background:linear-gradient(to top,#050505 36%,rgba(5,5,5,0.6) 52%,transparent 68%);"></div>
         </div>
         <div class="absolute bottom-0 left-0 right-0 p-4 md:p-5">
           <p class="text-[10px] tracking-[0.3em] text-brand-green uppercase mb-1.5">Sports Medicine &amp; Clinical Assessment</p>
-          <h3 class="font-display text-[clamp(1.3rem,2.5vw,1.9rem)] text-brand-white leading-tight mb-1">Dr. Mohamed Magdy Kandil</h3>
+          <h3 class="font-display text-[clamp(1.3rem,2.5vw,1.9rem)] text-brand-white leading-tight mb-1">Dr. Mohamed Magdy Kandeil</h3>
           <p class="text-brand-gray text-[11px] tracking-[0.15em] uppercase mb-2">Founder</p>
           <p class="text-brand-gray text-xs leading-relaxed">8 years in sports injury. Head of Medical, Right to Dream (FC Masar). Sports Injury Diploma, Barcelona. Mulligan MWM, dry needling, EMG certified. AIMS clinical instructor.</p>
         </div>
@@ -544,7 +676,7 @@
       <!-- Dr. Yassine -->
       <div class="group relative overflow-hidden img-zoom reveal reveal-d1">
         <div class="relative" style="aspect-ratio:3/5;">
-          <img src="team/compressed/yassen-2.jpg" alt="Dr. Yassin Rady" class="w-full h-full object-cover object-top" />
+          <img src="team/compressed/yassen-2.jpg" alt="Dr. Yassin Rady" class="w-full h-full object-cover object-top" loading="lazy">
           <div class="absolute inset-0" style="background:linear-gradient(to top,#050505 36%,rgba(5,5,5,0.6) 52%,transparent 68%);"></div>
         </div>
         <div class="absolute bottom-0 left-0 right-0 p-4 md:p-5">
@@ -558,7 +690,7 @@
       <!-- Dr. Ahmed -->
       <div class="group relative overflow-hidden img-zoom reveal reveal-d2">
         <div class="relative" style="aspect-ratio:3/5;">
-          <img src="team/compressed/dr-ahmed.jpg" alt="Dr. Ahmed Hesham" class="w-full h-full object-cover object-top" />
+          <img src="team/compressed/dr-ahmed.jpg" alt="Dr. Ahmed Hesham" class="w-full h-full object-cover object-top" loading="lazy">
           <div class="absolute inset-0" style="background:linear-gradient(to top,#050505 36%,rgba(5,5,5,0.6) 52%,transparent 68%);"></div>
         </div>
         <div class="absolute bottom-0 left-0 right-0 p-4 md:p-5">
@@ -572,7 +704,7 @@
       <!-- Dr. Mohsen -->
       <div class="group relative overflow-hidden img-zoom reveal reveal-d3">
         <div class="relative" style="aspect-ratio:3/5;">
-          <img src="team/compressed/mohsen-hosni.jpg" alt="Dr. Mohsen Hosny" class="w-full h-full object-cover object-top" />
+          <img src="team/compressed/mohsen-hosni.jpg" alt="Dr. Mohsen Hosny" class="w-full h-full object-cover object-top" loading="lazy">
           <div class="absolute inset-0" style="background:linear-gradient(to top,#050505 36%,rgba(5,5,5,0.6) 52%,transparent 68%);"></div>
         </div>
         <div class="absolute bottom-0 left-0 right-0 p-4 md:p-5">
@@ -590,7 +722,7 @@
         <!-- Nada Sabry -->
         <div class="reveal">
           <div class="aspect-square img-zoom overflow-hidden bg-[#111] mb-3">
-            <img src="team/compressed/dr nada sabry.jpg" alt="Nada Sabry" class="w-full h-full object-cover object-top" />
+            <img src="team/compressed/dr nada sabry.jpg" alt="Nada Sabry" class="w-full h-full object-cover object-top" loading="lazy">
           </div>
           <p class="text-brand-white text-sm font-medium">Nada Sabry</p>
           <p class="text-brand-gray text-[11px] tracking-[0.15em] uppercase mt-1">Physiotherapist</p>
@@ -599,7 +731,7 @@
         <!-- Nada Karam -->
         <div class="reveal reveal-d1">
           <div class="aspect-square img-zoom overflow-hidden bg-[#111] mb-3">
-            <img src="team/compressed/dr nada karam.jpg" alt="Nada Karam" class="w-full h-full object-cover object-top" />
+            <img src="team/compressed/dr nada karam.jpg" alt="Nada Karam" class="w-full h-full object-cover object-top" loading="lazy">
           </div>
           <p class="text-brand-white text-sm font-medium">Nada Karam</p>
           <p class="text-brand-gray text-[11px] tracking-[0.15em] uppercase mt-1">Physiotherapist</p>
@@ -608,7 +740,7 @@
         <!-- Nada Samy -->
         <div class="reveal reveal-d2">
           <div class="aspect-square img-zoom overflow-hidden bg-[#111] mb-3">
-            <img src="team/compressed/dr nada samy.jpg" alt="Nada Samy" class="w-full h-full object-cover object-top" style="transform:scale(1.1);transform-origin:top center;" />
+            <img src="team/compressed/dr nada samy.jpg" alt="Nada Samy" class="w-full h-full object-cover object-top" style="transform:scale(1.1);transform-origin:top center;" loading="lazy">
           </div>
           <p class="text-brand-white text-sm font-medium">Nada Samy</p>
           <p class="text-brand-gray text-[11px] tracking-[0.15em] uppercase mt-1">Physiotherapist</p>
@@ -617,7 +749,7 @@
         <!-- Yousef -->
         <div class="reveal reveal-d3">
           <div class="aspect-square img-zoom overflow-hidden bg-[#111] mb-3">
-            <img src="team/compressed/youssef-karim.jpg" alt="Youssef Karim" class="w-full h-full object-cover object-top" />
+            <img src="team/compressed/youssef-karim.jpg" alt="Youssef Karim" class="w-full h-full object-cover object-top" loading="lazy">
           </div>
           <p class="text-brand-white text-sm font-medium">Youssef Karim</p>
           <p class="text-brand-gray text-[11px] tracking-[0.15em] uppercase mt-1">Teaching Assistant, Queen Margaret University</p>
@@ -626,7 +758,7 @@
         <!-- Dr. Muhammed Abdelftah -->
         <div class="reveal">
           <div class="aspect-square img-zoom overflow-hidden bg-[#111] mb-3">
-            <img src="team/compressed/muhammed-abdelftah.jpg" alt="Dr. Muhammed Abdelftah" class="w-full h-full object-cover object-top" />
+            <img src="team/compressed/muhammed-abdelftah.jpg" alt="Dr. Muhammed Abdelftah" class="w-full h-full object-cover object-top" loading="lazy">
           </div>
           <p class="text-brand-white text-sm font-medium">Dr. Muhammed Abdelftah</p>
           <p class="text-brand-gray text-[11px] tracking-[0.15em] uppercase mt-1">Physiotherapist</p>
@@ -743,7 +875,7 @@
 <!-- ═══════════════════════════════════════ BOOKING -->
 <section id="booking" class="py-20 md:py-28 px-5 md:px-12 lg:px-20 bg-[#050505] relative overflow-hidden">
   <!-- Atmospheric background -->
-  <img id="booking-bg-img" src="therapy/image of patient and therapy.jpg" alt="" aria-hidden="true" />
+  <img id="booking-bg-img" src="therapy/image of patient and therapy.jpg" alt="" aria-hidden="true" loading="lazy">
   <div id="booking-overlay" aria-hidden="true"></div>
   <div id="booking-glow" aria-hidden="true"></div>
 
@@ -870,7 +1002,7 @@
       <div class="space-y-4 reveal reveal-d2">
         <!-- Therapy image accent -->
         <div class="relative overflow-hidden" style="aspect-ratio:4/3;">
-          <img src="therapy/therapy 4.jpg" alt="" class="w-full h-full object-cover" style="filter:brightness(0.6) saturate(0.5);" />
+          <img src="therapy/therapy 4.jpg" alt="" class="w-full h-full object-cover" style="filter:brightness(0.6) saturate(0.5);" loading="lazy">
           <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(5,5,5,0.85) 0%,transparent 60%);"></div>
           <div class="absolute bottom-0 left-0 p-5">
             <p style="font-size:10px;letter-spacing:0.35em;color:#27C93F;text-transform:uppercase;margin-bottom:6px;">Manual therapy</p>
@@ -1091,7 +1223,7 @@
     <div class="max-w-[1400px] mx-auto">
       <div class="grid md:grid-cols-[1fr_auto_auto] gap-10 md:gap-16 mb-12">
         <div>
-          <img src="logo/inspire logo no background.png" alt="INSPIRE" style="height:40px;width:auto;object-fit:contain;object-position:left;margin-bottom:1.25rem;" />
+          <img src="logo/inspire logo no background.png" alt="INSPIRE" style="height:40px;width:auto;object-fit:contain;object-position:left;margin-bottom:1.25rem;" loading="lazy">
           <p class="text-brand-gray text-sm leading-relaxed max-w-xs mb-5">Elite physiotherapy &amp; sports injury recovery in Cairo. Manual therapy. Smart rehab. Real results.</p>
           <a href="tel:+201200777828" class="text-brand-white text-base font-semibold hover:text-brand-green transition-colors">+20 120 077 7828</a>
         </div>
