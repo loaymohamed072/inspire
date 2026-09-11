@@ -36,3 +36,9 @@ replace-headshots.mjs
 
 # Separate bot project
 whatsapp-bot/
+
+# Raw owner footage (compressed web versions live in media/)
+Machine Videos/
+*.zip
+.DS_Store
+.claude-flow/
